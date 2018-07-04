@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 if (isset($_SESSION['captcha_time']) && time() - intval($_SESSION['captcha_time']) < 1) {
 	$protocol = $_SERVER['HTTPS'] ? 'https://' : 'http://';
@@ -126,7 +126,9 @@ else {
 	$_SESSION['captcha_code'] = $answer;
 }
 
-require_once 'captcha-code.php';
+if (!class_exists('YL_Security_Secoder')) {
+	require_once('captcha-code.php');
+}
 $captcha = new YL_Security_Secoder($code);
 $captcha->entry();
 

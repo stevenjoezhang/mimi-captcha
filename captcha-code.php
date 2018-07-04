@@ -14,15 +14,15 @@ class YL_Security_Secoder {
  * 验证码中的参数
  * @var string
  */
-	//验证码位数
-	public static $code = array('无', '验', '证', '码');
 
+	//Settings: You can customize the captcha here
+	public static $code = array('无', '验', '证', '码'); //验证码文字
 	protected static $fontSize = 25; //验证码字体大小(px)
 	protected static $useCurve = true; //是否画混淆曲线
 	protected static $useNoise = true; //是否添加杂点
 	protected static $bg = array(243, 251, 254); //背景
 
-	protected static $fonts = array(); //'站酷酷黑', 'simhei', 'simfang', 'simkai', '本墨竞圆', '庞门正道标题体2.0增强版', '站酷快乐体2016修订版', '经典隶变简'
+	protected static $fonts = array(); //'simhei', 'simfang', 'simkai', '本墨竞圆', '庞门正道标题体2.0增强版', '站酷快乐体2016修订版', '经典隶变简'
 	protected static $image_L = 0; //验证码图片长
 	protected static $image_H = 0; //验证码图片宽
 	protected static $image = null; //验证码图片实例
@@ -50,7 +50,7 @@ class YL_Security_Secoder {
 			self::$bg[1],
 			self::$bg[2]
 		);
-		//验证码字体随机颜色
+		//验证码字体随机颜色 Random color
 		self::$color = imagecolorallocate(
 			self::$image,
 			mt_rand(1, 120),
@@ -94,11 +94,11 @@ class YL_Security_Secoder {
 		header('Cache-Control: private, max-age=0, no-store, no-cache, must-revalidate');
 		header('Cache-Control: post-check=0, pre-check=0', false);
 		header('Pragma: no-cache');
-		header('Content-Type: image/png'); //defining the image type to be shown in browser window
+		header('Content-Type: image/png'); //Defining the image type to be shown in browser window
 
 		//输出图像
-		imagepng(self::$image); //showing the image
-		imagedestroy(self::$image); //destroying the image instance
+		imagepng(self::$image); //Showing the image
+		imagedestroy(self::$image); //Destroying the image instance
 	}
 
 /**

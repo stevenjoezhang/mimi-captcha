@@ -2,17 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: micaptcha\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-16 12:24-0000\n"
-"PO-Revision-Date: 2013-01-16 12:24-0000\n"
-"Last-Translator: Vinoj Cardoza <vinoj.cardoza@gmail.com>\n"
-"Language-Team: Vinoj Cardoza <vinoj.cardoza@gmail.com>\n"
+"POT-Creation-Date: 1984-01-24 16:00-0000\n"
+"PO-Revision-Date: 1984-01-24 16:00-0000\n"
+"Last-Translator: Shuqiao Zhang <zsq@zsq.im>\n"
+"Language-Team: Shuqiao Zhang <zsq@zsq.im>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-msgid "CAPTCHA"
-msgstr "验证码"
 
 msgid "Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our official website <a href="https://galaxymimi.com">Galaxy Mimi</a> for more infomation."
 msgstr "感谢您使用Mimi Captcha。更改设置后请记得手动保存。</strong><br/>前往我们的官方网站<a href="https://galaxymimi.com">Galaxy Mimi</a>获取更多信息。"
@@ -24,7 +21,7 @@ msgid "Configuration"
 msgstr "验证码参数设置"
 
 msgid "Captcha type"
-msgstr "验证码类型："
+msgstr "验证码类型"
 
 msgid "Alphanumeric"
 msgstr "字母数字"
@@ -42,7 +39,7 @@ msgid "Math Captcha"
 msgstr "算术"
 
 msgid "Captcha letters type"
-msgstr "验证码字母类型："
+msgstr "验证码字母类型"
 
 msgid "Capital letters only"
 msgstr "大写字母"
@@ -54,7 +51,7 @@ msgid "Capital & Small letters"
 msgstr "大小写混合"
 
 msgid "Case sensitive"
-msgstr "字母区分大小写："
+msgstr "字母区分大小写"
 
 msgid "Sensitive"
 msgstr "区分"
@@ -63,10 +60,10 @@ msgid "Insensitive"
 msgstr "不区分"
 
 msgid "Total number of Captcha characters"
-msgstr "验证码字符总数："
+msgstr "验证码字符总数"
 
 msgid "Captcha timeout"
-msgstr "验证码超时时间："
+msgstr "验证码超时时间"
 
 msgid "30 seconds"
 msgstr "30秒"
@@ -87,7 +84,7 @@ msgid "Unlimited"
 msgstr "不超时"
 
 msgid "Captcha loading mode"
-msgstr "验证码加载方式："
+msgstr "验证码加载方式"
 
 msgid "Default"
 msgstr "直接加载"
@@ -98,11 +95,11 @@ msgstr "页面载入后加载"
 msgid "On user input"
 msgstr "用户输入时加载"
 
-msgid "Captcha display Options"
+msgid "Captcha Display Options"
 msgstr "验证码显示选项"
 
-msgid "Enable Captcha for Login form"
-msgstr "登录表单："
+msgid "Login form"
+msgstr "登录表单"
 
 msgid "Enable"
 msgstr "启用"
@@ -110,17 +107,17 @@ msgstr "启用"
 msgid "Disable"
 msgstr "不启用"
 
-msgid "Enable Captcha for Register form"
-msgstr "注册表单："
+msgid "Register form"
+msgstr "注册表单"
 
-msgid "Enable Captcha for Lost Password form"
-msgstr "忘记密码表单："
+msgid "Lost Password form"
+msgstr "忘记密码表单"
 
-msgid "Enable Captcha for Comments form"
-msgstr "评论表单："
+msgid "Comments form"
+msgstr "评论表单"
 
 msgid "Hide Captcha for logged in users"
-msgstr "对已登录用户隐藏验证码："
+msgstr "对已登录用户隐藏验证码"
 
 msgid "Yes"
 msgstr "是"
@@ -134,8 +131,14 @@ msgstr "验证码字体"
 msgid "You can upload fonts (.ttf) to /wp-content/plugins/mimi-captcha/fonts folder. Fonts will be chosen randomly when generating Captcha."
 msgstr "您可以将ttf格式的字体上传至/wp-content/plugins/mimi-captcha/fonts文件夹。在生成验证码时，会随机选择其中的字体。"
 
+msgid "Whitelist"
+msgstr "白名单"
+
 msgid "Captcha"
 msgstr "验证码"
+
+msgid "You are in the whitelist"
+msgstr "您在白名单中"
 
 msgid "Click the image to refresh"
 msgstr "看不清？点击图片刷新验证码！"
@@ -143,8 +146,8 @@ msgstr "看不清？点击图片刷新验证码！"
 msgid "Type the Captcha above"
 msgstr "请输入验证码"
 
-msgid "Mimi Captcha is not configured yet. Please go to the <a href="%s">plugin admin page</a> to change settings."
-msgstr "Mimi Captcha没有配置完成。请您前往<a href="%s">插件配置页</a>更改并保存设置。"
+msgid "Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%s">plugin admin page</a> to check settings."
+msgstr "感谢您使用Mimi Captcha。插件暂未完成配置，请您前往<a href="%s">插件配置页</a>检查设置。"
 
 msgid "Incorrect Captcha confirmation!"
 msgstr "验证码输入错误！"

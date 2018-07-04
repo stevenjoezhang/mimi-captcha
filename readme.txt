@@ -2,17 +2,17 @@
 
 Contributors: vinoj.cardoza, simplywordpress, stevenjoezhang
 Donate link: https://galaxymimi.com
-Tags: captcha, captcha code, wordpress captcha, captcha for wordpress, forms captcha, captcha security, security
+Tags: captcha, captcha code, security, spam blocker, forms captcha, protection, text captcha, anti-spam
 Requires at least: 3.0
 Tested up to: 4.9.6
 Stable tag: trunk
-License: GPLv2 or later
+License: GPLv3 or later
 
 Adds Captcha Code anti-spam methods to WordPress forms. Supports numbers, alphabets and Chinese characters.
 在WordPress登陆、注册或评论表单中加入验证码功能，支持字母、数字、中文和算术验证码。
 
-This plugin is inspired by Vinoj Cardoza's Captcha Code and simplywordpress's Captcha. More about them:
-本项目从Vinoj Cardoza的Captcha Code和simplywordpress的Captcha插件中获得了灵感。原项目的重要信息如下：
+This plugin is inspired by Vinoj Cardoza's Captcha Code, simplywordpress's Captcha and BestWebSoft's Google Captcha. More infomation about them:
+本项目从Vinoj Cardoza的Captcha Code，simplywordpress的Captcha以及BestWebSoft的Google Captcha插件中获得了灵感。这些项目的重要信息如下：
 
 Plugin Name: Captcha Code
 Plugin URI: http://www.vinojcardoza.com/captcha-code-authentication/
@@ -21,15 +21,22 @@ Version: 2.6.6
 Author: Vinoj Cardoza
 Author URI: http://www.vinojcardoza.com
 License: GPL2
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=vinoj%2ecardoza%40gmail%2ecom&currency_code=GBP&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
 
 Plugin Name: Captcha
 Plugin URI: https://wordpress.org/plugins/captcha/
 Description: This plugin allows you to implement super security captcha form into web forms.
-Author: simplywordpress
 Version: 4.4.6
+Author: simplywordpress
 Author URI: https://wordpress.org/plugins/captcha/
 License: GPLv2 or later
+
+Plugin Name: Google Captcha (reCAPTCHA) by BestWebSoft
+Plugin URI: https://bestwebsoft.com/products/wordpress/plugins/google-captcha/
+Description: Protect WordPress website forms from spam entries with Google Captcha (reCaptcha).
+Version: 1.36
+Author: BestWebSoft
+Author URI: https://bestwebsoft.com/
+License: GPLv3 or later
 
 == Description ==
 
@@ -39,13 +46,13 @@ Adds Captcha Code anti-spam methods to WordPress forms. Forms include comments f
 = Features =
 
 1. Administrator can specify where the captcha should be displayed i.e, comments, login, registration or lost password form.
+管理员可以决定在哪里显示这些验证码，例如评论、登陆、注册或找回密码窗口。
 2. Administrator select the letters type from the options available - Capital letters, Small letters or Captial & Small letters.
+管理员可以选择验证码的字母类型：大写、小写或大小写混合。
 3. Administrator select the captcha type from the options available - Alphanumeric, Alphabets, numbers or Chinese characters.
+管理员可以选择验证码的字符类型：字母、数字、混合或者中文。
 4. Translation enabled.
-1. 管理员可以决定在哪里显示这些验证码，例如评论、登陆、注册或找回密码窗口。
-2. 管理员可以选择验证码的字母类型：大写、小写或大小写混合。
-3. 管理员可以选择验证码的字符类型：字母、数字、混合或者中文。
-4. 多语言支持。
+多语言支持。
 
 = Requirements =
 
@@ -55,9 +62,9 @@ PHP gd2 extension is required. You can run 'php -m' or use 'phpinfo()' to check 
 = Note =
 
 1. If you find any bugs, please report in the following link, so that it will be fixed as quick as possible.
+如果您找到了任何BUG，请通过下方的链接进行报告，这样我们才能尽快改正。
 2. If you think any feature adding to this plugin can improve its features, please recommend it in the following link.
-1. 如果您找到了任何BUG，请通过下方的链接进行报告，这样我们才能尽快改正。
-2. 如果您认为可以增加新功能，请通过下方的链接给我们建议。
+如果您认为可以增加新功能，请通过下方的链接给我们建议。
 
 = Support =
 
@@ -80,20 +87,19 @@ SESSION的存储可能造成性能瓶颈，建议通过在php.ini中设置sessio
 == Installation ==
 
 1. Download the plugin.
+下载插件
 2. Upload to your blog (/wp-content/plugins/).
+上传至你的博客（/wp-content/plugins/目录）
 3. Activate it.
-4. Click the 'Captcha' menu.
-6. Fill in the options.
+激活插件
+4. Click the 'Mimi Captcha' menu.
+点击 'Mimi Captcha' 菜单
+5. Fill in the options.
+进行配置
 
 Important Note: It is mandatory to save options in this plugin.
 You're done!
 Uninstalling is as simple as deactivating and deleting the plugin.
-
-1. 下载插件
-2. 上传至你的博客 (/wp-content/plugins/).
-3. 激活插件
-4. 点击 'Mimi Captcha' 菜单
-5. 进行配置
 
 重要提醒：初次使用时必须进行配置，并手动保存，否则验证码不会生效！
 （本插件会自动提醒用户进行配置）
