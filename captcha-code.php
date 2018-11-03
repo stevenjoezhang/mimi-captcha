@@ -71,7 +71,7 @@ class YL_Security_Secoder {
 		$all_files = scandir(dirname(__FILE__).'/fonts/');
 		foreach ($all_files as $fontname) {
 			if (preg_match('/(.*)\.ttf/', $fontname)) {
-				array_push(self::$fonts, $fontname);
+				self::$fonts[] = $fontname;
 			}
 		}
 		//绘验证码

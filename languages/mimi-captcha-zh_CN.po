@@ -1,7 +1,9 @@
+# Copyright (C) Shuqiao Zhang 2018
+# This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: micaptcha\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mimi-captcha\n"
 "POT-Creation-Date: 1984-01-24 16:00-0000\n"
 "PO-Revision-Date: 1984-01-24 16:00-0000\n"
 "Last-Translator: Shuqiao Zhang <zsq@zsq.im>\n"
@@ -10,9 +12,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: CHINA\n"
 
-msgid "Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our official website <a href="https://galaxymimi.com">Galaxy Mimi</a> for more infomation."
-msgstr "感谢您使用Mimi Captcha。更改设置后请记得手动保存。</strong><br/>前往我们的官方网站<a href="https://galaxymimi.com">Galaxy Mimi</a>获取更多信息。"
+msgid "<strong>Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our <a href="https://github.com/stevenjoezhang/mimi-captcha">official website</a> for more infomation."
+msgstr "<strong>感谢您使用Mimi Captcha。更改设置后请务必手动保存。</strong><br/>前往我们的<a href="https://github.com/stevenjoezhang/mimi-captcha">GitHub Repo</a>获取更多信息。"
+
+msgid "Settings"
+msgstr "设置"
 
 msgid "Options saved."
 msgstr "选项已保存。"
@@ -110,6 +117,9 @@ msgstr "不启用"
 msgid "Register form"
 msgstr "注册表单"
 
+msgid "Allow new users to enter a password"
+msgstr "允许新用户自定义密码"
+
 msgid "Lost Password form"
 msgstr "忘记密码表单"
 
@@ -133,6 +143,15 @@ msgstr "您可以将ttf格式的字体上传至/wp-content/plugins/mimi-captcha/
 
 msgid "Whitelist"
 msgstr "白名单"
+
+msgid "One IP or IP range (1.2.3.4-5.6.7.8) per line."
+msgstr "每行一个IP地址或IP地址范围（如1.2.3.4-5.6.7.8）。"
+
+msgid "Blacklist"
+msgstr "黑名单"
+
+msgid "Coming Soon..."
+msgstr "新功能即将上线，敬请期待。"
 
 msgid "Captcha"
 msgstr "验证码"
@@ -158,11 +177,29 @@ msgstr "验证码已超时！"
 msgid "Captcha cannot be empty. Please complete the Captcha."
 msgstr "验证码不能为空。请正确填写验证码。"
 
-msgid "ERROR"
-msgstr "错误"
+msgid "<strong>ERROR</strong>: "
+msgstr "<strong>错误</strong>："
 
-msgid ": "
-msgstr "："
+msgid "Password"
+msgstr "密码"
+
+msgid "Repeat password"
+msgstr "重复密码"
+
+msgid "Passwords cannot be empty."
+msgstr "密码不能为空。"
+
+msgid "Passwords must match."
+msgstr "两次输入的密码不匹配。"
+
+msgid "Passwords must be at least eight characters long."
+msgstr "密码长度至少为8个字符。"
+
+msgid "If you leave password fields empty one will be generated for you. Password must be at least eight characters long."
+msgstr "如果不填写密码，系统会自动产生密码并通过电子邮件发送给您。密码长度至少为8个字符。"
+
+msgid "Registration complete. Please sign in or check your e-mail."
+msgstr "您已经成功注册本站。请直接登录或者查收电子邮件。"
 
 msgid "Press your browser\'s back button and try again."
 msgstr "请按浏览器的后退按钮，再试一次。"

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['captcha_time']) && time() - intval($_SESSION['captcha_time']) < 1) {
+if (isset($_SESSION['captcha_time']) && time() - intval($_SESSION['captcha_time']) < 1) { //限制最短刷新时间
 	$protocol = $_SERVER['HTTPS'] ? 'https://' : 'http://';
 	header('Location: '.dirname($protocol.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']).'/default.png');
 	die();
