@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Mimi Captcha
  * Plugin URI: https://github.com/stevenjoezhang/mimi-captcha
- * Description: 在WordPress登陆、注册或评论表单中加入验证码功能，支持字母、数字、中文和算术验证码。
- * Version: 0.0.5
+ * Description: 简洁的中文验证码插件。在WordPress登陆、注册或评论表单中加入验证码功能，支持字母、数字、中文和算术验证码。
+ * Version: 0.0.6
  * Author: Shuqiao Zhang
  * Author URI: https://zhangshuqiao.org
  * Text Domain: mimi-captcha
@@ -78,16 +78,16 @@ switch (get_option('micaptcha_loading_mode')) {
 		</script>');
 		break;
 }
-define('MICAPTCHA_CONTENT', '<span style="display: block; clear: both;"></span>
+define('MICAPTCHA_WHITELIST', '<p class="form-captcha">
+		<label>'.__('Captcha', 'mimi-captcha').' <span class="required">*</span></label>
+		<span style="display: block; clear: both;"></span>
+		<label>'.__('You are in the whitelist', 'mimi-captcha').'</label>
+		</p>');
+define('MICAPTCHA_CONTENT', '<p class="form-captcha">
 		<img alt="Captcha Code" id="micaptcha" src="'.MICAPTCHA_DIR_URL.'default.png" style="max-width: 100%;"/>
 		<span style="display: block; clear: both;"></span>
 		<label>'.__('Click the image to refresh', 'mimi-captcha').'</label>
 		<span style="display: block; clear: both;"></span>'.MICAPTCHA_SCRIPT);
-define('MICAPTCHA_WHITELIST', '<p class="captcha-whitelist">
-		<label>'.__('Captcha', 'mimi-captcha').' <span class="required">*</span></label>
-		<div style="clear: both;"></div>
-		<label>'.__('You are in the whitelist', 'mimi-captcha').'</label>
-		</p>');
 define('MICAPTCHA_INPUT', '<label for="url">'.__('Captcha', 'mimi-captcha').' <span class="required">*</span></label>
 		<!-- Don`t Ask Why Not `for="captcha_code"`. You are Not Expected to Understand This. -->
 		<input id="captcha_code" name="captcha_code" type="text" size="30" maxlength="200" autocomplete="off" style="display: block;" placeholder="'.__('Type the Captcha above', 'mimi-captcha').'"/>
@@ -97,16 +97,17 @@ define('MICAPTCHA_INPUT', '<label for="url">'.__('Captcha', 'mimi-captcha').' <s
 register_activation_hook(__FILE__, 'micaptcha_enabled');
 register_deactivation_hook(__FILE__, 'micaptcha_disabled');
 
-//Hook to initalize the admin menu
-add_action('admin_menu', 'micaptcha_admin_menu');
-
 //Hook to initialize sessions
 add_action('init', 'micaptcha_init_sessions');
+
+//Hook to initalize the admin menu
+add_action('admin_menu', 'micaptcha_admin_menu');
 
 //Hook to initialize admin notices
 add_action('admin_notices', 'micaptcha_admin_notice');
 
 add_filter('plugin_action_links', 'micaptcha_plugin_actions', 10, 2);
+add_filter('admin_footer_text', 'micaptcha_admin_footer', 1, 2 );
 
 function micaptcha_enabled() {
 	update_option('micaptcha_status', 'enabled');
@@ -114,19 +115,6 @@ function micaptcha_enabled() {
 
 function micaptcha_disabled() {
 	update_option('micaptcha_status', 'disabled');
-}
-
-require_once('general-options.php');
-
-//To add the menus in the admin section
-function micaptcha_admin_menu() {
-	add_options_page(
-		__('Mimi Captcha'),
-		__('Mimi Captcha'),
-		'manage_options',
-		'micaptcha_slug',
-		'micaptcha_general_options'
-	);
 }
 
 function micaptcha_init_sessions() {
@@ -138,9 +126,22 @@ function micaptcha_init_sessions() {
 	$_SESSION['total_no_of_characters'] = get_option('micaptcha_total_no_of_characters');
 }
 
+//To add the menus in the admin section
+function micaptcha_admin_menu() {
+	add_options_page(
+		'Mimi Captcha',
+		'Mimi Captcha',
+		'manage_options',
+		'micaptcha_slug',
+		'micaptcha_general_options'
+	);
+}
+
+require_once('general-options.php');
+
 function micaptcha_admin_notice() {
 	if (substr($_SERVER['PHP_SELF'], -11) == 'plugins.php' && function_exists('admin_url') && !get_option('micaptcha_type')) {
-		echo '<div class="notice notice-warning"><p><strong>'.sprintf(__('Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%s">plugin admin page</a> to check settings.', 'mimi-captcha'), admin_url('options-general.php?page=micaptcha_slug')).'</strong></p></div>';
+		echo '<div class="notice notice-warning"><p><strong>'.sprintf(__('Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%1$s">plugin admin page</a> to check settings.', 'mimi-captcha'), admin_url('options-general.php?page=micaptcha_slug')).'</strong></p></div>';
 	}
 }
 
@@ -150,6 +151,18 @@ function micaptcha_plugin_actions($links, $file) {
 		array_unshift($links, $settings_link); //Before other links
 	}
 	return $links;
+}
+
+function micaptcha_admin_footer($text) {
+	if ($_GET['page'] === 'micaptcha_slug' && function_exists('admin_url')) {
+		$url = 'https://wordpress.org/support/plugin/mimi-captcha/reviews/?filter=5#new-post';
+
+		$text = sprintf(
+			//Translators: %1$s - WP.org link; %2$s - same WP.org link
+			__('Please rate <strong>Mimi Captcha</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the Mimi Captcha team!', 'mimi-captcha'), $url, $url
+		);
+	}
+	return $text;
 }
 
 function micaptcha_get_ip() {
@@ -176,7 +189,9 @@ function micaptcha_get_ip() {
 }
 
 function micaptcha_ip_in_range($ip, $list) {
-	if ($ip == "") return false;
+	if ($ip == '') {
+		return false;
+	}
 	foreach ($list as $range) {
 		$range = array_map('trim', explode('-', $range));
 		if (count($range) == 1) {
@@ -186,12 +201,16 @@ function micaptcha_ip_in_range($ip, $list) {
 			$low = ip2long($range[0]);
 			$high = ip2long($range[1]);
 			$needle = ip2long($ip);
-			if ($low === false || $high === false || $needle === false) continue;
+			if ($low === false || $high === false || $needle === false) {
+				continue;
+			}
 
 			$low = sprintf("%u", $low);
 			$high = sprintf("%u", $high);
 			$needle = sprintf("%u", $needle);
-			if ($needle >= $low && $needle <= $high) return true;
+			if ($needle >= $low && $needle <= $high) {
+				return true;
+			}
 		}
 	}
 	return false;
@@ -200,13 +219,19 @@ function micaptcha_ip_in_range($ip, $list) {
 function micaptcha_whitelist() { //黑名单同理
 	$whitelist_ips = get_option('micaptcha_whitelist_ips');
 	//$whitelist_usernames = get_option('micaptcha_whitelist_usernames');
-	if (micaptcha_ip_in_range(micaptcha_get_ip(), (array)$whitelist_ips)) return true;
+	if (micaptcha_ip_in_range(micaptcha_get_ip(), (array)$whitelist_ips)) {
+		return true;
+	}
 	//else if (in_array($username, (array)$whitelist_usernames)) return true;
-	else return false;
+	else {
+		return false;
+	}
 }
 
 function micaptcha_validate() {
-	if (micaptcha_whitelist()) return false;
+	if (micaptcha_whitelist()) {
+		return false;
+	}
 	if (!isset($_SESSION['captcha_time']) || !isset($_SESSION['captcha_code']) || !isset($_REQUEST['captcha_code'])) {
 		return __('Incorrect Captcha confirmation!', 'mimi-captcha');
 	}
@@ -217,18 +242,23 @@ function micaptcha_validate() {
 		}
 	}
 	//If captcha is blank - add error
-	if ($_REQUEST['captcha_code'] == "") {
+	if ($_REQUEST['captcha_code'] == '') {
 		return __('Captcha cannot be empty. Please complete the Captcha.', 'mimi-captcha');
 	}
-	if ($_SESSION['captcha_code'] == $_REQUEST['captcha_code']) return false;
+	if ($_SESSION['captcha_code'] == $_REQUEST['captcha_code']) {
+		return false;
+	}
 	if (get_option('micaptcha_case_sensitive') == 'insensitive') {
-		if (strtoupper($_SESSION['captcha_code']) == strtoupper($_REQUEST['captcha_code'])) return false;
+		if (strtoupper($_SESSION['captcha_code']) == strtoupper($_REQUEST['captcha_code'])) {
+			return false;
+		}
 	}
 	//Captcha was not matched
 	return __('Incorrect Captcha confirmation!', 'mimi-captcha');
 }
 
-//Captcha for login authentication starts here
+/* Captcha for login authentication starts here */
+
 if (get_option('micaptcha_login') == 'yes') {
 	add_action('login_form', 'micaptcha_login');
 	add_filter('login_errors', 'micaptcha_login_errors');
@@ -241,10 +271,11 @@ function micaptcha_login() {
 		echo MICAPTCHA_WHITELIST;
 	}
 	else {
-		echo '<p class="login-form-captcha">'.MICAPTCHA_CONTENT;
+		echo MICAPTCHA_CONTENT;
 		//Will retrieve the get varibale and prints a message from url if the captcha is wrong
 		if (isset($_GET['captcha']) && $_GET['captcha'] == 'confirm_error') {
-			echo '<label style="color: #FF0000;" id="capt_err">'.$_SESSION['captcha_error'].'</label><div style="clear: both;"></div>';
+			echo '<label style="color: #FF0000;">'.$_SESSION['captcha_error'].'</label>
+			<span style="display: block; clear: both;"></span>';
 			$_SESSION['captcha_error'] = '';
 		}
 		echo MICAPTCHA_INPUT;
@@ -258,7 +289,7 @@ function micaptcha_login_errors($errors) {
 		return $errors;
 	}
 	if (micaptcha_validate()) {
-		return $errors.'<label id="capt_err" for="captcha_code_error">'.micaptcha_validate().'</label>';
+		return $errors.__('<strong>ERROR</strong>: ', 'mimi-captcha').micaptcha_validate();
 	}
 	return $errors;
 }
@@ -352,7 +383,8 @@ function micaptcha_edit_password_email_text($translated_text, $untranslated_text
 	return $translated_text;
 }
 
-//Captcha for Register form starts here
+/* Captcha for Register form starts here */
+
 if (get_option('micaptcha_register') == 'yes') {
 	add_action('register_form', 'micaptcha_register');
 	add_action('register_post', 'micaptcha_register_post', 10, 3);
@@ -366,7 +398,7 @@ function micaptcha_register($default) {
 		echo MICAPTCHA_WHITELIST;
 	}
 	else {
-		echo '<p class="register-form-captcha">'.MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
+		echo MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
 	}
 	return true;
 }
@@ -386,7 +418,8 @@ function micaptcha_register_validate($results) {
 	}
 }
 
-//Captcha for lost password form starts here
+/* Captcha for lost password form starts here */
+
 if (get_option('micaptcha_lost') == 'yes') {
 	add_action('lostpassword_form', 'micaptcha_lostpassword');
 	add_action('lostpassword_post', 'micaptcha_lostpassword_post', 10, 3);
@@ -398,28 +431,33 @@ function micaptcha_lostpassword($default) {
 		echo MICAPTCHA_WHITELIST;
 	}
 	else {
-		echo '<p class="lost-form-captcha">'.MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
+		echo MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
 	}
 }
 
 function micaptcha_lostpassword_post() {
-	if (isset($_REQUEST['user_login']) && $_REQUEST['user_login'] == "") {
-		return;
-	}
 	if (micaptcha_validate()) {
-		wp_die(__('<strong>ERROR</strong>: ', 'mimi-captcha').micaptcha_validate().' '.__('Press your browser\'s back button and try again.', 'mimi-captcha'));
+		add_filter('allow_password_reset', 'micaptcha_lostpassword_errors_wp');
 	}
 }
 
-//Captcha for Comments starts here
+function micaptcha_lostpassword_errors_wp() {
+	return false;
+	//禁止找回密码行为，让前面的micaptcha_login_errors处理此问题
+}
+
+/* Captcha for comments starts here */
+
 if (get_option('micaptcha_comments') == 'yes') {
 	global $wp_version;
-	if (version_compare($wp_version, '3', '>=')) { //wp 3.0 +
-		add_action('comment_form_after_fields', 'micaptcha_comment_form_wp3', 1);
-		add_action('comment_form_logged_in_after', 'micaptcha_comment_form_wp3', 1);
+	if (version_compare($wp_version, '3', '>=')) { //wp 3.0+
+		add_action('comment_form_after_fields', 'micaptcha_comment_form', 1);
+		add_action('comment_form_logged_in_after', 'micaptcha_comment_form', 1);
 	}
-	//For WP before WP 3.0
-	add_action('comment_form', 'micaptcha_comment_form');	
+	//For wp before ver 3.0
+	else {
+		add_action('comment_form', 'micaptcha_comment_form');
+	}
 	add_filter('preprocess_comment', 'micaptcha_comment_post');
 }
 
@@ -432,23 +470,8 @@ function micaptcha_comment_form() {
 		if (is_user_logged_in() && get_option('micaptcha_registered') == 'yes') {
 			return true;
 		}
-		echo '<p class="comment-form-captcha">'.MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
+		echo MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
 	}
-	return true;
-}
-
-//Function to include captcha for comments form > wp3
-function micaptcha_comment_form_wp3() {
-	if (micaptcha_whitelist()) {
-		echo MICAPTCHA_WHITELIST;
-	}
-	else {
-		if (is_user_logged_in() && get_option('micaptcha_registered') == 'yes') {
-			return true;
-		}
-		echo '<p class="comment-form-captcha">'.MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
-	}
-	remove_action('comment_form', 'micaptcha_comment_form');
 	return true;
 }
 
@@ -458,12 +481,7 @@ function micaptcha_comment_post($comment) {
 		//Skip capthca
 		return $comment;
 	}
-	//Added for compatibility with WP Wall plugin
-	//This does NOT add CAPTCHA to WP Wall plugin,
-	//It just prevents the "Error: You did not enter a Captcha phrase." when submitting a WP Wall comment
-	if (function_exists('WPWall_Widget') && isset($_REQUEST['wpwall_comment'])) {
-		return $comment;
-	}
+
 	//Skip captcha for comment replies from the admin menu
 	if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'replyto-comment' &&
 		(check_ajax_referer('replyto-comment', '_ajax_nonce', false) || check_ajax_referer('replyto-comment', '_ajax_nonce-replyto-comment', false))) {
@@ -475,7 +493,7 @@ function micaptcha_comment_post($comment) {
 		return $comment;
 	}
 	if (micaptcha_validate()) {
-		wp_die(__('<strong>ERROR</strong>: ', 'mimi-captcha').micaptcha_validate().' '.__('Press your browser\'s back button and try again.', 'mimi-captcha'));
+		wp_die(__('<strong>ERROR</strong>: ', 'mimi-captcha').micaptcha_validate(), __('Comment Submission Failure', 'mimi-captcha'), array('response' => 200, 'back_link' => true));
 	}
 	return $comment;
 }

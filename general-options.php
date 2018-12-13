@@ -4,10 +4,15 @@ function micaptcha_general_options() {
 ?>
 <div class="wrap">
 	<h1>Mimi Captcha</h1>
-	<div class="notice notice-info is-dismissible"><p><?php _e('<strong>Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our <a href="https://github.com/stevenjoezhang/mimi-captcha">official website</a> for more infomation.', 'mimi-captcha'); ?></p></div>
+	<div class="notice notice-info is-dismissible">
+		<p>
+		<?php printf(__('<strong>Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our <a href="%1$s" target="_blank" rel="noopener noreferrer">GitHub Repo</a> for more infomation.', 'mimi-captcha'), 'https://github.com/stevenjoezhang/mimi-captcha'); ?>
+		</p>
+	</div>
+
 <?php
 	if (!current_user_can('manage_options')) return;
-	//Display only for those who can actually deactivate plugins.
+	//Display only for those who can actually deactivate plugins
 	$mi_options = array(
 		'type' => array('alphanumeric', 'alphabets', 'numbers', 'chinese', 'math'),
 		'letters' => array('capital', 'small', 'capitalsmall'),
@@ -79,7 +84,7 @@ function micaptcha_general_options() {
 						<option value="alphanumeric" <?php if ($mi_opt['type'] == 'alphanumeric') echo 'selected="selected"'; ?>><?php _e('Alphanumeric', 'mimi-captcha'); ?></option>
 						<option value="alphabets" <?php if ($mi_opt['type'] == 'alphabets') echo 'selected="selected"'; ?>><?php _e('Alphabets', 'mimi-captcha'); ?></option>
 						<option value="numbers" <?php if ($mi_opt['type'] == 'numbers') echo 'selected="selected"'; ?>><?php _e('Numbers', 'mimi-captcha'); ?></option>
-						<option value="chinese" <?php if ($mi_opt['type'] == 'chinese') echo 'selected="selected"'; ?>><?php _e('Chinese Chars', 'mimi-captcha'); ?></option>
+						<option value="chinese" <?php if ($mi_opt['type'] == 'chinese') echo 'selected="selected"'; ?>><?php _e('Chinese chars', 'mimi-captcha'); ?></option>
 						<option value="math" <?php if ($mi_opt['type'] == 'math') echo 'selected="selected"'; ?>><?php _e('Math Captcha', 'mimi-captcha'); ?></option>
 					</select>
 				</td>
@@ -90,7 +95,7 @@ function micaptcha_general_options() {
 					<select name="letters">
 						<option value="capital" <?php if ($mi_opt['letters'] == 'capital') echo 'selected="selected"'; ?>><?php _e('Capital letters only', 'mimi-captcha'); ?></option>
 						<option value="small" <?php if ($mi_opt['letters'] == 'small') echo 'selected="selected"'; ?>><?php _e('Small letters only', 'mimi-captcha'); ?></option>
-						<option value="capitalsmall" <?php if ($mi_opt['letters'] == 'capitalsmall') echo 'selected="selected"'; ?>><?php _e('Capital & Small letters', 'mimi-captcha'); ?></option>
+						<option value="capitalsmall" <?php if ($mi_opt['letters'] == 'capitalsmall') echo 'selected="selected"'; ?>><?php _e('Capital & small letters', 'mimi-captcha'); ?></option>
 					</select>
 				</td>
 			</tr>
@@ -118,7 +123,7 @@ function micaptcha_general_options() {
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><?php _e('Captcha timeout', 'mimi-captcha'); ?></th>
+				<th scope="row"><?php _e('Captcha expiration time', 'mimi-captcha'); ?></th>
 				<td>
 					<select name="timeout_time">
 						<option value="30" <?php if ($mi_opt['timeout_time'] == 30) echo 'selected="selected"'; ?>><?php _e('30 seconds', 'mimi-captcha'); ?></option>
@@ -142,7 +147,7 @@ function micaptcha_general_options() {
 			</tr>
 		</table>
 
-		<h2><?php _e('Captcha Display Options', 'mimi-captcha'); ?></h2>
+		<h2><?php _e('Captcha display Options', 'mimi-captcha'); ?></h2>
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><?php _e('Login form', 'mimi-captcha'); ?></th>
@@ -187,7 +192,7 @@ function micaptcha_general_options() {
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><?php _e('Lost Password form', 'mimi-captcha'); ?></th>
+				<th scope="row"><?php _e('Lost password form', 'mimi-captcha'); ?></th>
 				<td>
 					<p>
 						<label>
@@ -230,7 +235,7 @@ function micaptcha_general_options() {
 			</tr>
 		</table>
 
-		<h2><?php _e('Captcha Fonts', 'mimi-captcha'); ?></h2>
+		<h2><?php _e('Captcha fonts', 'mimi-captcha'); ?></h2>
 		<p><?php _e('You can upload fonts (.ttf) to /wp-content/plugins/mimi-captcha/fonts folder. Fonts will be chosen randomly when generating Captcha.', 'mimi-captcha'); ?></p>
 
 		<h2><?php _e('Whitelist', 'mimi-captcha'); ?></h2>
@@ -240,7 +245,7 @@ function micaptcha_general_options() {
 		</div>
 
 		<h2><?php _e('Blacklist', 'mimi-captcha'); ?></h2>
-		<p><?php _e('Coming Soon...', 'mimi-captcha'); ?></p>
+		<p><?php _e('Coming soon...', 'mimi-captcha'); ?></p>
 
 		<?php submit_button(); ?>
 	</form>

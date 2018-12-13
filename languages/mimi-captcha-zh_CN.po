@@ -15,143 +15,7 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: CHINA\n"
 
-msgid "<strong>Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our <a href="https://github.com/stevenjoezhang/mimi-captcha">official website</a> for more infomation."
-msgstr "<strong>感谢您使用Mimi Captcha。更改设置后请务必手动保存。</strong><br/>前往我们的<a href="https://github.com/stevenjoezhang/mimi-captcha">GitHub Repo</a>获取更多信息。"
-
-msgid "Settings"
-msgstr "设置"
-
-msgid "Options saved."
-msgstr "选项已保存。"
-
-msgid "Configuration"
-msgstr "验证码参数设置"
-
-msgid "Captcha type"
-msgstr "验证码类型"
-
-msgid "Alphanumeric"
-msgstr "字母数字"
-
-msgid "Alphabets"
-msgstr "字母"
-
-msgid "Numbers"
-msgstr "数字"
-
-msgid "Chinese Chars"
-msgstr "中文"
-
-msgid "Math Captcha"
-msgstr "算术"
-
-msgid "Captcha letters type"
-msgstr "验证码字母类型"
-
-msgid "Capital letters only"
-msgstr "大写字母"
-
-msgid "Small letters only"
-msgstr "小写字母"
-
-msgid "Capital & Small letters"
-msgstr "大小写混合"
-
-msgid "Case sensitive"
-msgstr "字母区分大小写"
-
-msgid "Sensitive"
-msgstr "区分"
-
-msgid "Insensitive"
-msgstr "不区分"
-
-msgid "Total number of Captcha characters"
-msgstr "验证码字符总数"
-
-msgid "Captcha timeout"
-msgstr "验证码超时时间"
-
-msgid "30 seconds"
-msgstr "30秒"
-
-msgid "1 min"
-msgstr "1分钟"
-
-msgid "2 min"
-msgstr "2分钟"
-
-msgid "5 min"
-msgstr "5分钟"
-
-msgid "10 min"
-msgstr "10分钟"
-
-msgid "Unlimited"
-msgstr "不超时"
-
-msgid "Captcha loading mode"
-msgstr "验证码加载方式"
-
-msgid "Default"
-msgstr "直接加载"
-
-msgid "On page load"
-msgstr "页面载入后加载"
-
-msgid "On user input"
-msgstr "用户输入时加载"
-
-msgid "Captcha Display Options"
-msgstr "验证码显示选项"
-
-msgid "Login form"
-msgstr "登录表单"
-
-msgid "Enable"
-msgstr "启用"
-
-msgid "Disable"
-msgstr "不启用"
-
-msgid "Register form"
-msgstr "注册表单"
-
-msgid "Allow new users to enter a password"
-msgstr "允许新用户自定义密码"
-
-msgid "Lost Password form"
-msgstr "忘记密码表单"
-
-msgid "Comments form"
-msgstr "评论表单"
-
-msgid "Hide Captcha for logged in users"
-msgstr "对已登录用户隐藏验证码"
-
-msgid "Yes"
-msgstr "是"
-
-msgid "No"
-msgstr "否"
-
-msgid "Captcha Fonts"
-msgstr "验证码字体"
-
-msgid "You can upload fonts (.ttf) to /wp-content/plugins/mimi-captcha/fonts folder. Fonts will be chosen randomly when generating Captcha."
-msgstr "您可以将ttf格式的字体上传至/wp-content/plugins/mimi-captcha/fonts文件夹。在生成验证码时，会随机选择其中的字体。"
-
-msgid "Whitelist"
-msgstr "白名单"
-
-msgid "One IP or IP range (1.2.3.4-5.6.7.8) per line."
-msgstr "每行一个IP地址或IP地址范围（如1.2.3.4-5.6.7.8）。"
-
-msgid "Blacklist"
-msgstr "黑名单"
-
-msgid "Coming Soon..."
-msgstr "新功能即将上线，敬请期待。"
+# mimi-captcha.php
 
 msgid "Captcha"
 msgstr "验证码"
@@ -160,13 +24,19 @@ msgid "You are in the whitelist"
 msgstr "您在白名单中"
 
 msgid "Click the image to refresh"
-msgstr "看不清？点击图片刷新验证码！"
+msgstr "看不清？点击图片刷新！"
 
 msgid "Type the Captcha above"
 msgstr "请输入验证码"
 
-msgid "Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%s">plugin admin page</a> to check settings."
-msgstr "感谢您使用Mimi Captcha。插件暂未完成配置，请您前往<a href="%s">插件配置页</a>检查设置。"
+msgid "Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%1$s">plugin admin page</a> to check settings."
+msgstr "感谢您使用Mimi Captcha。插件暂未完成配置，请您前往<a href="%1$s">插件配置页</a>检查设置。"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Please rate <strong>Mimi Captcha</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the Mimi Captcha team!"
+msgstr "请在<a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a>上给<strong>Mimi Captcha</strong>评分<a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> ，来帮助我们宣传。Mimi Captcha团队衷心感谢您！"
 
 msgid "Incorrect Captcha confirmation!"
 msgstr "验证码输入错误！"
@@ -199,7 +69,144 @@ msgid "If you leave password fields empty one will be generated for you. Passwor
 msgstr "如果不填写密码，系统会自动产生密码并通过电子邮件发送给您。密码长度至少为8个字符。"
 
 msgid "Registration complete. Please sign in or check your e-mail."
-msgstr "您已经成功注册本站。请直接登录或者查收电子邮件。"
+msgstr "您已经成功在本站注册。请直接登录或者查收电子邮件。"
 
-msgid "Press your browser\'s back button and try again."
-msgstr "请按浏览器的后退按钮，再试一次。"
+msgid "Comment Submission Failure"
+msgstr "评论提交失败"
+
+# general-options.php
+
+msgid "<strong>Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our <a href="%1$s" target="_blank" rel="noopener noreferrer">GitHub Repo</a> for more infomation."
+msgstr "<strong>感谢您使用Mimi Captcha。更改设置后请务必手动保存。</strong><br/>前往我们的<a href="%1$s" target="_blank" rel="noopener noreferrer">GitHub Repo</a>获取更多信息。"
+
+msgid "Options saved."
+msgstr "选项已保存。"
+
+msgid "Configuration"
+msgstr "验证码参数设置"
+
+msgid "Captcha type"
+msgstr "验证码类型"
+
+msgid "Alphanumeric"
+msgstr "字母数字"
+
+msgid "Alphabets"
+msgstr "字母"
+
+msgid "Numbers"
+msgstr "数字"
+
+msgid "Chinese chars"
+msgstr "中文"
+
+msgid "Math Captcha"
+msgstr "算术"
+
+msgid "Captcha letters type"
+msgstr "验证码字母类型"
+
+msgid "Capital letters only"
+msgstr "大写字母"
+
+msgid "Small letters only"
+msgstr "小写字母"
+
+msgid "Capital & small letters"
+msgstr "大小写混合"
+
+msgid "Case sensitive"
+msgstr "字母区分大小写"
+
+msgid "Sensitive"
+msgstr "区分"
+
+msgid "Insensitive"
+msgstr "不区分"
+
+msgid "Total number of Captcha characters"
+msgstr "验证码字符总数"
+
+msgid "Captcha expiration time"
+msgstr "验证码超时时间"
+
+msgid "30 seconds"
+msgstr "30秒"
+
+msgid "1 min"
+msgstr "1分钟"
+
+msgid "2 min"
+msgstr "2分钟"
+
+msgid "5 min"
+msgstr "5分钟"
+
+msgid "10 min"
+msgstr "10分钟"
+
+msgid "Unlimited"
+msgstr "不超时"
+
+msgid "Captcha loading mode"
+msgstr "验证码加载方式"
+
+msgid "Default"
+msgstr "直接加载"
+
+msgid "On page load"
+msgstr "页面载入后加载"
+
+msgid "On user input"
+msgstr "用户输入时加载"
+
+msgid "Captcha display Options"
+msgstr "验证码显示选项"
+
+msgid "Login form"
+msgstr "登录表单"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "Disable"
+msgstr "不启用"
+
+msgid "Register form"
+msgstr "注册表单"
+
+msgid "Allow new users to enter a password"
+msgstr "允许新用户自定义密码"
+
+msgid "Lost password form"
+msgstr "忘记密码表单"
+
+msgid "Comments form"
+msgstr "评论表单"
+
+msgid "Hide Captcha for logged in users"
+msgstr "对已登录用户隐藏验证码"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "Captcha fonts"
+msgstr "验证码字体"
+
+msgid "You can upload fonts (.ttf) to /wp-content/plugins/mimi-captcha/fonts folder. Fonts will be chosen randomly when generating Captcha."
+msgstr "您可以将ttf格式的字体上传至/wp-content/plugins/mimi-captcha/fonts文件夹。在生成验证码时，会随机选择其中的字体。"
+
+msgid "Whitelist"
+msgstr "白名单"
+
+msgid "One IP or IP range (1.2.3.4-5.6.7.8) per line."
+msgstr "每行一个IP地址或IP地址范围（如1.2.3.4-5.6.7.8）。"
+
+msgid "Blacklist"
+msgstr "黑名单"
+
+msgid "Coming soon..."
+msgstr "新功能即将上线，敬请期待。"
