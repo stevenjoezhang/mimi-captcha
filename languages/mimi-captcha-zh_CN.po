@@ -32,9 +32,6 @@ msgstr "请输入验证码"
 msgid "Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%1$s">plugin admin page</a> to check settings."
 msgstr "感谢您使用Mimi Captcha。插件暂未完成配置，请您前往<a href="%1$s">插件配置页</a>检查设置。"
 
-msgid "Settings"
-msgstr "设置"
-
 msgid "Please rate <strong>Mimi Captcha</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the Mimi Captcha team!"
 msgstr "请在<a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a>上给<strong>Mimi Captcha</strong>评分<a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> ，来帮助我们宣传。Mimi Captcha团队衷心感谢您！"
 
@@ -49,9 +46,6 @@ msgstr "验证码不能为空。请正确填写验证码。"
 
 msgid "<strong>ERROR</strong>: "
 msgstr "<strong>错误</strong>："
-
-msgid "Password"
-msgstr "密码"
 
 msgid "Repeat password"
 msgstr "重复密码"
@@ -68,7 +62,7 @@ msgstr "密码长度至少为8个字符。"
 msgid "If you leave password fields empty one will be generated for you. Password must be at least eight characters long."
 msgstr "如果不填写密码，系统会自动产生密码并通过电子邮件发送给您。密码长度至少为8个字符。"
 
-msgid "Registration complete. Please sign in or check your e-mail."
+msgid "Registration complete. Please sign in or check your email."
 msgstr "您已经成功在本站注册。请直接登录或者查收电子邮件。"
 
 msgid "Comment Submission Failure"
@@ -186,12 +180,6 @@ msgstr "评论表单"
 
 msgid "Hide Captcha for logged in users"
 msgstr "对已登录用户隐藏验证码"
-
-msgid "Yes"
-msgstr "是"
-
-msgid "No"
-msgstr "否"
 
 msgid "Captcha fonts"
 msgstr "验证码字体"

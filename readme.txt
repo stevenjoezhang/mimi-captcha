@@ -17,15 +17,15 @@ Adds Captcha Code anti-spam methods to WordPress forms. Supports numbers, alphab
 
 在WordPress登陆、注册或评论表单中加入验证码，支持字母、数字、中文和算术形式。用户需要输入验证码才可以进行进一步操作，这可以有效阻止机器人发表垃圾评论或暴力破解密码，增加安全性。
 如果需要在登陆密码输错若干次后限制该IP登陆，或拉入黑名单，可以使用插件Limit Login Attempts Reloaded，与本插件兼容且效果较好。
-Adds Captcha Code anti-spam methods to WordPress forms. Forms include login form, registration form, lost password form and comments form. In order to post comments or register, users will have to type in the code shown on the image. This prevents spam from automated bots, and increase security.
+Adds Captcha code anti-spam methods to WordPress forms. Forms include login form, registration form, lost password form and comments form. In order to post comments or register, users will have to type in the code shown on the image. This prevents spam from automated bots, and increase security.
 
 ### Features
 
 1. 管理员可以决定在哪里显示这些验证码。
-Administrator can specify where the captcha should be displayed.
+Administrator can specify where the Captcha should be displayed.
 
 2. 管理员可以选择验证码的字符类型：字母、数字、混合或者中文。
-Administrator can select the captcha type from the options available - Alphanumeric, Alphabets, numbers or Chinese characters.
+Administrator can select the Captcha type from the options available - Alphanumeric, Alphabets, Numbers or Chinese characters.
 
 3. 管理员可以选择验证码的字母类型：大写、小写或大小写混合。
 Administrator can select the letters type from the options available - Capital letters, Small letters or Both.
@@ -97,18 +97,29 @@ Uninstalling is as simple as deactivating and deleting the plugin.
 ## Screenshots
 
 1. Login form with Mimi Captcha
+
 2. Registration form with Mimi Captcha
-3. Comments form with Mimi Captcha
+
+3. Lost Password form with Mimi Captcha
+
 4. Comments form with Mimi Captcha
-5. Mimi Captcha Settings page
+
+5. Comments form with Mimi Captcha
+
+6. Mimi Captcha settings page
 
 ## Change Log
 
 ### Version 0.0.6
 
 * 升级了验证码生成算法
+Upgraded Captcha generation algorithm
 
 * 统一了错误信息的提示方式
+Unify the error messages prompted
+
+* 增加了可用字体
+Added more fonts
 
 ### Version 0.0.5
 
