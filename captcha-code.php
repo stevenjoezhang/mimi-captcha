@@ -1,7 +1,6 @@
 <?php
 /**
  * 安全验证码
- *
  * 安全的验证码要：验证码文字扭曲、旋转，使用不同字体，添加干扰码
  *
  * @author 流水孟春 <cmpan(at)qq.com>
@@ -10,10 +9,6 @@
  */
 class YL_Security_Secoder {
 
-/**
- * 验证码中的参数
- * @var string
- */
 	public static $code = array('无', '验', '证', '码'); //验证码文字
 	protected static $bg = null;
 	protected static $fonts = array(); //可用的字体
@@ -22,12 +17,20 @@ class YL_Security_Secoder {
 	protected static $image = null; //验证码图片实例
 	protected static $color = null; //验证码字体颜色
 
+/**
+ * 验证码中的参数
+ * 可以自定义，但不推荐
+ */
 	//Settings: You can customize the captcha here
 	protected static $fontSize = 30; //验证码字体大小(px)
 	protected static $useCurve = true; //是否画混淆曲线
 	protected static $useNoise = true; //是否添加杂点
 	protected static $distort = true; //是否扭曲
 
+/**
+ * 构造函数
+ * @var array $code
+ */
 	function __construct($code) {
 		self::$code = $code;
 		//设置背景颜色
@@ -49,21 +52,15 @@ class YL_Security_Secoder {
 		self::$image_H || self::$image_H = self::$fontSize * 2;
 		//建立一幅 self::$image_L x self::$image_H 的图像
 		self::$image = imagecreate(self::$image_L, self::$image_H);
-
 		imagecolorallocate(
 			self::$image,
 			self::$bg[0],
 			self::$bg[1],
 			self::$bg[2]
 		);
-
 		if (self::$useCurve) {
 			self::writeCurve(); //绘干扰线
 		}
-		if (self::$useNoise) {
-			self::writeNoise(); //绘杂点
-		}
-
 		//验证码使用随机字体
 		$all_files = scandir(dirname(__FILE__).'/fonts/');
 		foreach ($all_files as $fontname) {
@@ -79,19 +76,21 @@ class YL_Security_Secoder {
 			imagettftext(
 				self::$image,
 				self::$fontSize,
-				mt_rand(-30, 30),
+				mt_rand(-20, 20),
 				$codeNX,
-				self::$fontSize * 1.5,
-				self::color(),
+				self::$fontSize * 3 / 2,
+				self::color(0, 120),
 				$ttf,
 				self::$code[$i]
 			);
 		}
-
 		if (self::$distort) {
-			self::distortion();
+			self::distortion(); //扭曲验证码
 		}
-		/* Show captcha image in the page html page */
+		if (self::$useNoise) {
+			self::writeNoise(); //绘杂点
+		}
+		//Show captcha image in the html page
 		header('Cache-Control: private, max-age=0, no-store, no-cache, must-revalidate');
 		header('Cache-Control: post-check=0, pre-check=0', false);
 		header('Pragma: no-cache');
@@ -103,48 +102,44 @@ class YL_Security_Secoder {
 	}
 
 /**
- * 随机颜色
+ * 生成随机颜色
  * 返回值为imagecolorallocate的索引
  */
-	protected static function color() {
-
-		//随机颜色 Random color
+	protected static function color($low, $high) {
+		//Random color
 		return imagecolorallocate(
 			self::$image,
-			mt_rand(1, 120),
-			mt_rand(1, 120),
-			mt_rand(1, 120)
+			mt_rand($low, $high),
+			mt_rand($low, $high),
+			mt_rand($low, $high)
 		);
 	}
 
 /**
  * 画一条由两条连在一起构成的随机正弦函数曲线作干扰线
- * 你可以改成更帅的曲线函数，比如Bessel
+ * 可以改成更帅的曲线函数，比如Bessel函数
  *
  * 高中的数学公式咋都忘了涅，写出来
  * 正弦型函数解析式：y=Asin(ωx+φ)+b
- * 各常数值对函数图像的影响：
- * A：决定峰值（即纵向拉伸压缩的倍数）
- * b：表示波形在Y轴的位置关系或纵向移动距离（上加下减）
- * φ：决定波形与X轴位置关系或横向移动距离（左加右减）
- * ω：决定周期（最小正周期T=2π/∣ω∣）
- *
+ * 各参数值对函数图像的影响：
+ * A：振幅，决定峰值（即纵向拉伸压缩的倍数）
+ * ω：圆频率，最小正周期T=2π/∣ω∣
+ * φ：初相位，决定波形与X轴位置关系或横向移动距离（左加右减）
+ * b：偏置，表示波形在Y轴的位置关系或纵向移动距离（上加下减）
  */
 	protected static function writeCurve() {
 		$A = mt_rand(1, self::$image_H / 2); //振幅
+		$T = mt_rand(self::$image_H * 3 / 2, self::$image_L * 2); //周期
+		$omega = (2 * M_PI) / $T; //圆频率
+		$phi = mt_rand(-self::$image_H / 4, self::$image_H / 4); //X轴方向偏移量
 		$b = mt_rand(-self::$image_H / 4, self::$image_H / 4); //Y轴方向偏移量
-		$f = mt_rand(-self::$image_H / 4, self::$image_H / 4); //X轴方向偏移量
-		$T = mt_rand(self::$image_H * 1.5, self::$image_L * 2); //周期
-		$w = (2 * M_PI) / $T;
-
 		$px1 = 0; //曲线横坐标起始位置
-		$px2 = mt_rand(self::$image_L / 2, self::$image_L * 0.667); //曲线横坐标结束位置
-		$color = self::color();
+		$px2 = mt_rand(self::$image_L / 2, self::$image_L * 2 / 3); //曲线横坐标结束位置
+		$color = self::color(120, 160);
 		for ($px = $px1; $px <= $px2; $px += 0.9) {
-			if ($w != 0) {
-				$py = $A * sin($w * $px + $f) + $b + self::$image_H / 2; //y = Asin(ωx+φ) + b
+			if ($omega != 0) {
+				$py = $A * sin($omega * $px + $phi) + $b + self::$image_H / 2; //y=Asin(ωx+φ)+b
 				$i = (int) ((self::$fontSize - 6) / 4);
-				//使用while循环画像素点比imagettftext和imagestring用字体大小一次画出性能要好很多
 				while ($i > 0) {
 					imagesetpixel(
 						self::$image,
@@ -157,17 +152,17 @@ class YL_Security_Secoder {
 			}
 		}
 
-		$A = mt_rand(1, self::$image_H / 2); //振幅
-		$f = mt_rand(-self::$image_H / 4, self::$image_H / 4); //X轴方向偏移量
-		$T = mt_rand(self::$image_H * 1.5, self::$image_L * 2); //周期
-		$w = (2 * M_PI) / $T;
-		$b = $py - $A * sin($w * $px + $f) - self::$image_H / 2;
+		$A = mt_rand(1, self::$image_H / 2);
+		$T = mt_rand(self::$image_H * 3 / 2, self::$image_L * 2);
+		$omega = (2 * M_PI) / $T;
+		$phi = mt_rand(-self::$image_H / 4, self::$image_H / 4);
+		$b = $py - $A * sin($omega * $px + $phi) - self::$image_H / 2;
 		$px1 = $px2;
 		$px2 = self::$image_L;
-		$color = self::color();
+		$color = self::color(120, 160);
 		for ($px = $px1; $px <= $px2; $px += 0.9) {
-			if ($w != 0) {
-				$py = $A * sin($w * $px + $f) + $b + self::$image_H / 2; //y = Asin(ωx+φ) + b
+			if ($omega != 0) {
+				$py = $A * sin($omega * $px + $phi) + $b + self::$image_H / 2;
 				$i = (int) ((self::$fontSize - 8) / 4);
 				while ($i > 0) {
 					imagesetpixel(
@@ -178,34 +173,6 @@ class YL_Security_Secoder {
 					);
 					$i--;
 				}
-			}
-		}
-	}
-
-/**
- * 画杂点
- * 往图片上写不同颜色的字母或数字
- */
-	protected static function writeNoise() {
-		$noiseSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		for ($i = 0; $i < 10; $i++) {
-			//杂点颜色
-			$noiseColor = imagecolorallocate(
-				self::$image,
-				mt_rand(150, 225),
-				mt_rand(150, 225),
-				mt_rand(150, 225)
-			);
-			for ($j = 0; $j < 5; $j++) {
-				//绘杂点
-				imagestring(
-					self::$image,
-					5,
-					mt_rand(-10, self::$image_L),
-					mt_rand(-10, self::$image_H),
-					$noiseSet[mt_rand(0, strlen($noiseSet) - 1)], //杂点文本为随机的字母或数字
-					$noiseColor
-				);
 			}
 		}
 	}
@@ -224,8 +191,8 @@ class YL_Security_Secoder {
 		);
 		$phase = M_PI * mt_rand(-1, 1); //初相位
 		$offset = 0; //偏置
-		$amplitude = 10; //振幅
-		$round = 2; //扭2个周期，即4PI
+		$amplitude = mt_rand(6, 8); //振幅
+		$round = mt_rand(2, 3); //扭2或3个周期
 		for ($i = 0; $i < self::$image_L; $i++) {
 			$posY = round(sin($i * $round * 2 * M_PI / self::$image_L + $phase) * $amplitude + $offset);
 			//根据正弦曲线，计算偏移量
@@ -235,5 +202,26 @@ class YL_Security_Secoder {
 		self::$image = $distortion;
 	}
 
+/**
+ * 往图片上画不同颜色的杂点
+ * 杂点文本为随机的字母或数字
+ */
+	protected static function writeNoise() {
+		$noiseSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		for ($i = 0; $i < 5; $i++) {
+			$noiseColor = self::color(160, 225); //杂点颜色
+			for ($j = 0; $j < 4; $j++) {
+				//绘杂点
+				imagestring(
+					self::$image,
+					5,
+					mt_rand(-10, self::$image_L),
+					mt_rand(-10, self::$image_H),
+					$noiseSet[mt_rand(0, strlen($noiseSet) - 1)],
+					$noiseColor
+				);
+			}
+		}
+	}
 }
 ?>

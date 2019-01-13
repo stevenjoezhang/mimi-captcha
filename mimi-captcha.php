@@ -3,7 +3,7 @@
  * Plugin Name: Mimi Captcha
  * Plugin URI: https://github.com/stevenjoezhang/mimi-captcha
  * Description: 简洁的中文验证码插件。在WordPress登陆、注册或评论表单中加入验证码功能，支持字母、数字、中文和算术验证码。
- * Version: 0.0.6
+ * Version: 0.1.0
  * Author: Shuqiao Zhang
  * Author URI: https://zhangshuqiao.org
  * Text Domain: mimi-captcha
@@ -107,7 +107,7 @@ add_action('admin_menu', 'micaptcha_admin_menu');
 add_action('admin_notices', 'micaptcha_admin_notice');
 
 add_filter('plugin_action_links', 'micaptcha_plugin_actions', 10, 2);
-add_filter('admin_footer_text', 'micaptcha_admin_footer', 1, 2 );
+add_filter('admin_footer_text', 'micaptcha_admin_footer', 1, 2);
 
 function micaptcha_enabled() {
 	update_option('micaptcha_status', 'enabled');
@@ -147,7 +147,7 @@ function micaptcha_admin_notice() {
 
 function micaptcha_plugin_actions($links, $file) {
 	if ($file == 'mimi-captcha/mimi-captcha.php' && function_exists('admin_url')) {
-		$settings_link = '<a href="'.admin_url('options-general.php?page=micaptcha_slug').'">'.__('Settings', 'mimi-captcha').'</a>';
+		$settings_link = '<a href="'.admin_url('options-general.php?page=micaptcha_slug').'">'.__('Settings').'</a>';
 		array_unshift($links, $settings_link); //Before other links
 	}
 	return $links;
@@ -309,7 +309,7 @@ function micaptcha_login_redirect($url) {
 	}
 }
 
-/* 
+/**
  * Add Password and Repeat Password fields to WordPress registration
  * All credit goes to http://thematosoup.com
  * Original code is from http://thematosoup.com/development/allow-users-set-password-wordpress-registration/
@@ -327,7 +327,7 @@ if (get_option('micaptcha_password') == 'yes') {
 function micaptcha_show_extra_register_fields() {
 	?>
 	<p>
-		<label for="password"><?php _e('Password', 'mimi-captcha'); ?>
+		<label for="password"><?php _e('Password'); ?>
 			<br/>
 			<input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password"/>
 		</label>
@@ -377,7 +377,7 @@ function micaptcha_edit_password_email_text($translated_text, $untranslated_text
 			//邮件发送密码的方式已在WordPress中被弃用
 		}
 		elseif ($untranslated_text == 'Registration complete. Please check your email.' || $untranslated_text == 'Registration complete. Please check your e-mail.') {
-			$translated_text = __('Registration complete. Please sign in or check your e-mail.', 'mimi-captcha');
+			$translated_text = __('Registration complete. Please sign in or check your email.', 'mimi-captcha');
 		}
 	}
 	return $translated_text;

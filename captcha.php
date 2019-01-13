@@ -7,11 +7,7 @@ if (isset($_SESSION['captcha_time']) && time() - intval($_SESSION['captcha_time'
 }
 
 $code_flag = true;
-$characters_on_image = 6;
-
-if (isset($_SESSION['total_no_of_characters']) && $_SESSION['total_no_of_characters']) {
-	$characters_on_image = $_SESSION['total_no_of_characters'];
-}
+$characters_on_image = (isset($_SESSION['total_no_of_characters']) && $_SESSION['total_no_of_characters']) ? $_SESSION['total_no_of_characters'] : 6;
 
 //The characters that can be used in the CAPTCHA code.
 //Avoid confusing characters (l 1 and i for example)
@@ -64,63 +60,44 @@ else {
 if ($code_flag) {
 	$code = array(); //Captcha code
 	for ($i = 0; $i < $characters_on_image; $i++) {
-		$code[$i] = mb_substr($possible_letters, mt_rand(0, mb_strlen($possible_letters) - 1), 1);
+		$code[] = mb_substr($possible_letters, mt_rand(0, mb_strlen($possible_letters) - 1), 1);
 	}
 	$_SESSION['captcha_code'] = join('', $code); //Save to SESSION
 }
 else {
 	$operator = mt_rand(0, 2);
 	$position = mt_rand(0, 2);
-	if ($operator == 0) {
-		$a = mt_rand(1, 99);
-		$b = mt_rand(1, 99);
-		$c = $a + $b;
-		if ($position == 0) {
-			$answer = $a;
-			$code = sprintf("?+%d=%d", $b, $c);
-		}
-		elseif ($position == 1) {
-			$answer = $b;
-			$code = sprintf("%d+?=%d", $a, $c);
-		}
-		elseif ($position == 2) {
-			$answer = $c;
-			$code = sprintf("%d+%d=?", $a, $b);
-		}
+	$symbols = array('+', '-', '*');
+	switch ($operator) {
+		case 0:
+			$a = mt_rand(1, 99);
+			$b = mt_rand(1, 99);
+			$c = $a + $b;
+			break;
+		case 1:
+			$a = mt_rand(1, 99);
+			$b = mt_rand(1, 99);
+			$c = $a - $b;
+			break;
+		case 2:
+			$a = mt_rand(1, 10);
+			$b = mt_rand(1, 10);
+			$c = $a * $b;
+			break;
 	}
-	elseif ($operator == 1) {
-		$a = mt_rand(1, 99);
-		$b = mt_rand(1, 99);
-		$c = $a - $b;
-		if ($position == 0) {
+	switch ($position) {
+		case 0:
+			$code = sprintf('?%s%d=%d', $symbols[$operator], $b, $c);
 			$answer = $a;
-			$code = sprintf("?-%d=%d", $b, $c);
-		}
-		elseif ($position == 1) {
+			break;
+		case 1:
+			$code = sprintf('%d%s?=%d', $a, $symbols[$operator], $c);
 			$answer = $b;
-			$code = sprintf("%d-?=%d", $a, $c);
-		}
-		elseif ($position == 2) {
+			break;
+		case 2:
+			$code = sprintf('%d%s%d=?', $a, $symbols[$operator], $b);
 			$answer = $c;
-			$code = sprintf("%d-%d=?", $a, $b);
-		}
-	}
-	elseif ($operator == 2) {
-		$a = mt_rand(1, 10);
-		$b = mt_rand(1, 10);
-		$c = $a * $b;
-		if ($position == 0) {
-			$answer = $a;
-			$code = sprintf("?*%d=%d", $b, $c);
-		}
-		elseif ($position == 1) {
-			$answer = $b;
-			$code = sprintf("%d*?=%d", $a, $c);
-		}
-		elseif ($position == 2) {
-			$answer = $c;
-			$code = sprintf("%d*%d=?", $a, $b);
-		}
+			break;
 	}
 	$code = str_split($code);
 	$_SESSION['captcha_code'] = $answer;
