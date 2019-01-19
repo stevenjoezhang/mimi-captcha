@@ -76,7 +76,7 @@ msgstr "<strong>感谢您使用Mimi Captcha。更改设置后请务必手动保�
 msgid "Options saved."
 msgstr "选项已保存。"
 
-msgid "Configuration"
+msgid "Captcha configuration"
 msgstr "验证码参数设置"
 
 msgid "Captcha type"
@@ -154,7 +154,19 @@ msgstr "页面载入后加载"
 msgid "On user input"
 msgstr "用户输入时加载"
 
-msgid "Captcha display Options"
+msgid "Captcha obfuscation settings"
+msgstr "验证码混淆设置"
+
+msgid "Adding curved lines"
+msgstr "画干扰线"
+
+msgid "Adding noise"
+msgstr "画杂点"
+
+msgid "Nonlinear distortion"
+msgstr "扭曲验证码"
+
+msgid "Captcha display options"
 msgstr "验证码显示选项"
 
 msgid "Login form"

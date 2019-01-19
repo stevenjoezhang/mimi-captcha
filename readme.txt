@@ -6,7 +6,7 @@
 * Requires at least: 3.0
 * Tested up to: 5.0
 * Requires PHP: 5.2.4
-* Stable tag: 0.1.0
+* Stable tag: 0.0.7
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -110,6 +110,14 @@ Uninstalling is as simple as deactivating and deleting the plugin.
 
 ## Change Log
 
+### Version 0.0.7
+
+* 优化了验证码生成算法
+Optimized Captcha generation algorithm
+
+* 增加了更多设置项
+Added more options
+
 ### Version 0.0.6
 
 * 升级了验证码生成算法
@@ -118,16 +126,13 @@ Upgraded Captcha generation algorithm
 * 统一了错误信息的提示方式
 Unify the error messages prompted
 
-* 增加了可用字体
-Added more fonts
-
 ### Version 0.0.5
-
-* 紧急bug修复
-Emergency bug fix
 
 * 更新了样式表，适用更多的主题
 Updated stylesheet
+
+* 增加了可用字体
+Added more fonts
 
 ### Version 0.0.4
 

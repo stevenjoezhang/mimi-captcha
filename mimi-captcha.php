@@ -3,7 +3,7 @@
  * Plugin Name: Mimi Captcha
  * Plugin URI: https://github.com/stevenjoezhang/mimi-captcha
  * Description: 简洁的中文验证码插件。在WordPress登陆、注册或评论表单中加入验证码功能，支持字母、数字、中文和算术验证码。
- * Version: 0.1.0
+ * Version: 0.0.7
  * Author: Shuqiao Zhang
  * Author URI: https://zhangshuqiao.org
  * Text Domain: mimi-captcha
@@ -124,6 +124,7 @@ function micaptcha_init_sessions() {
 	$_SESSION['captcha_type'] = get_option('micaptcha_type');
 	$_SESSION['captcha_letters'] = get_option('micaptcha_letters');
 	$_SESSION['total_no_of_characters'] = get_option('micaptcha_total_no_of_characters');
+	$_SESSION['captcha_flag'] = ((get_option('micaptcha_use_curve') == 'yes') << 2) | ((get_option('micaptcha_use_noise') == 'yes') << 1) | (get_option('micaptcha_distort') == 'yes');
 }
 
 //To add the menus in the admin section
@@ -156,7 +157,6 @@ function micaptcha_plugin_actions($links, $file) {
 function micaptcha_admin_footer($text) {
 	if ($_GET['page'] === 'micaptcha_slug' && function_exists('admin_url')) {
 		$url = 'https://wordpress.org/support/plugin/mimi-captcha/reviews/?filter=5#new-post';
-
 		$text = sprintf(
 			//Translators: %1$s - WP.org link; %2$s - same WP.org link
 			__('Please rate <strong>Mimi Captcha</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the Mimi Captcha team!', 'mimi-captcha'), $url, $url

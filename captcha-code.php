@@ -9,18 +9,14 @@
  */
 class YL_Security_Secoder {
 
-	public static $code = array('无', '验', '证', '码'); //验证码文字
+	//验证码中的参数
+	protected static $code = array('无', '验', '证', '码');
 	protected static $bg = null;
 	protected static $fonts = array(); //可用的字体
 	protected static $image_L = 0; //验证码图片长
 	protected static $image_H = 0; //验证码图片宽
 	protected static $image = null; //验证码图片实例
-	protected static $color = null; //验证码字体颜色
 
-/**
- * 验证码中的参数
- * 可以自定义，但不推荐
- */
 	//Settings: You can customize the captcha here
 	protected static $fontSize = 30; //验证码字体大小(px)
 	protected static $useCurve = true; //是否画混淆曲线
@@ -30,8 +26,10 @@ class YL_Security_Secoder {
 /**
  * 构造函数
  * @var array $code
+ * @var int   $flag
  */
-	function __construct($code) {
+	function __construct($code, $flag = 7) {
+		//验证码文字
 		self::$code = $code;
 		//设置背景颜色
 		self::$bg = array(
@@ -39,6 +37,9 @@ class YL_Security_Secoder {
 			mt_rand(242, 252),
 			mt_rand(247, 255)
 		);
+		self::$useCurve = $flag >> 2 & 0x01;
+		self::$useNoise = $flag >> 1 & 0x01;
+		self::$distort = $flag & 0x01;
 	}
 
 /**
@@ -46,6 +47,16 @@ class YL_Security_Secoder {
  * 内容为self::$code，字体和颜色随机
  */
 	public static function entry() {
+		//验证码使用随机字体
+		$all_fonts = scandir(dirname(__FILE__).'/fonts/');
+		foreach ($all_fonts as $fontname) {
+			if (preg_match('/(.*)\.ttf/', $fontname)) {
+				self::$fonts[] = $fontname;
+			}
+		}
+		if (count(self::$fonts) == 0) {
+			die("Error: No fonts are available. Please upload fonts to /wp-content/plugins/mimi-captcha/fonts/ folder.");
+		}
 		//图片宽(px)
 		self::$image_L || self::$image_L = self::$fontSize * (count(self::$code) * 1.6 + 0.8);
 		//图片高(px)
@@ -61,13 +72,6 @@ class YL_Security_Secoder {
 		if (self::$useCurve) {
 			self::writeCurve(); //绘干扰线
 		}
-		//验证码使用随机字体
-		$all_files = scandir(dirname(__FILE__).'/fonts/');
-		foreach ($all_files as $fontname) {
-			if (preg_match('/(.*)\.ttf/', $fontname)) {
-				self::$fonts[] = $fontname;
-			}
-		}
 		//绘验证码
 		for ($i = 0; $i < count(self::$code); $i++) {
 			$codeNX = self::$fontSize * mt_rand(16 * $i + 4, 16 * $i + 12) / 10; //验证码第N个字符的左边距
@@ -79,7 +83,7 @@ class YL_Security_Secoder {
 				mt_rand(-20, 20),
 				$codeNX,
 				self::$fontSize * 3 / 2,
-				self::color(0, 120),
+				self::color(0, 120), //验证码文字颜色
 				$ttf,
 				self::$code[$i]
 			);
@@ -119,7 +123,6 @@ class YL_Security_Secoder {
  * 画一条由两条连在一起构成的随机正弦函数曲线作干扰线
  * 可以改成更帅的曲线函数，比如Bessel函数
  *
- * 高中的数学公式咋都忘了涅，写出来
  * 正弦型函数解析式：y=Asin(ωx+φ)+b
  * 各参数值对函数图像的影响：
  * A：振幅，决定峰值（即纵向拉伸压缩的倍数）
@@ -191,8 +194,8 @@ class YL_Security_Secoder {
 		);
 		$phase = M_PI * mt_rand(-1, 1); //初相位
 		$offset = 0; //偏置
-		$amplitude = mt_rand(6, 8); //振幅
-		$round = mt_rand(2, 3); //扭2或3个周期
+		$amplitude = mt_rand(4, 6); //振幅
+		$round = 2; //扭2个周期
 		for ($i = 0; $i < self::$image_L; $i++) {
 			$posY = round(sin($i * $round * 2 * M_PI / self::$image_L + $phase) * $amplitude + $offset);
 			//根据正弦曲线，计算偏移量
@@ -207,7 +210,7 @@ class YL_Security_Secoder {
  * 杂点文本为随机的字母或数字
  */
 	protected static function writeNoise() {
-		$noiseSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$noiseSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ*#';
 		for ($i = 0; $i < 5; $i++) {
 			$noiseColor = self::color(160, 225); //杂点颜色
 			for ($j = 0; $j < 4; $j++) {

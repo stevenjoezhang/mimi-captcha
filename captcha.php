@@ -7,7 +7,8 @@ if (isset($_SESSION['captcha_time']) && time() - intval($_SESSION['captcha_time'
 }
 
 $code_flag = true;
-$characters_on_image = (isset($_SESSION['total_no_of_characters']) && $_SESSION['total_no_of_characters']) ? $_SESSION['total_no_of_characters'] : 6;
+$total_no_of_characters = (isset($_SESSION['total_no_of_characters']) && $_SESSION['total_no_of_characters']) ? $_SESSION['total_no_of_characters'] : 6;
+$captcha_flag = isset($_SESSION['captcha_flag']) ? $_SESSION['captcha_flag'] : 7;
 
 //The characters that can be used in the CAPTCHA code.
 //Avoid confusing characters (l 1 and i for example)
@@ -59,7 +60,7 @@ else {
 
 if ($code_flag) {
 	$code = array(); //Captcha code
-	for ($i = 0; $i < $characters_on_image; $i++) {
+	for ($i = 0; $i < $total_no_of_characters; $i++) {
 		$code[] = mb_substr($possible_letters, mt_rand(0, mb_strlen($possible_letters) - 1), 1);
 	}
 	$_SESSION['captcha_code'] = join('', $code); //Save to SESSION
@@ -106,7 +107,7 @@ else {
 if (!class_exists('YL_Security_Secoder')) {
 	require_once('captcha-code.php');
 }
-$captcha = new YL_Security_Secoder($code);
+$captcha = new YL_Security_Secoder($code, $captcha_flag);
 $captcha->entry();
 
 $_SESSION['captcha_time'] = time(); //验证码创建时间 unix timestamp (s)

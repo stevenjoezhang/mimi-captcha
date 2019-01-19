@@ -11,7 +11,9 @@ function micaptcha_general_options() {
 	</div>
 
 <?php
-	if (!current_user_can('manage_options')) return;
+	if (!current_user_can('manage_options')) {
+		return;
+	}
 	//Display only for those who can actually deactivate plugins
 	$mi_options = array(
 		'type' => array('alphanumeric', 'alphabets', 'numbers', 'chinese', 'math'),
@@ -20,6 +22,9 @@ function micaptcha_general_options() {
 		'total_no_of_characters' => array('2', '3', '4', '5', '6'),
 		'timeout_time' => array('30', '60', '120', '300', '600', '0'),
 		'loading_mode' => array('default', 'onload', 'oninput'),
+		'use_curve' => array('yes', 'no'),
+		'use_noise' => array('yes', 'no'),
+		'distort' => array('yes', 'no'),
 		'login' => array('yes', 'no'),
 		'register' => array('yes', 'no'),
 		'password' => array('yes', 'no'),
@@ -43,16 +48,21 @@ function micaptcha_general_options() {
 					$data = (!empty($_POST[$mi_option])) ? explode("\n", str_replace("\r", "", stripslashes($_POST[$mi_option]))) : array();
 					if (!empty($data)) {
 						foreach ($data as $key => $ip) {
-							if ('' == $ip) unset($data[$key]);
-							else $data[$key] = sanitize_text_field($data[$key]);
+							if ('' == $ip) {
+								unset($data[$key]);
+							}
+							else {
+								$data[$key] = sanitize_text_field($data[$key]);
+							}
 						}
 					}
 					update_option('micaptcha_'.$mi_option, $data);
 				}
 				else if (in_array($_POST[$mi_option], $mi_value, true)) { //Validate POST calls
 					$mi_index = array_search($_POST[$mi_option], $mi_value, true);
-					if (isset($mi_value[$mi_index])) update_option('micaptcha_'.$mi_option, $mi_value[$mi_index]);
-					//update_option() function receives $mi_value[$mi_index] as the second parameter, which is safe
+					if (isset($mi_value[$mi_index])) {
+						update_option('micaptcha_'.$mi_option, $mi_value[$mi_index]);
+					}
 				}
 				else {
 					update_option('micaptcha_'.$mi_option, $mi_value[0]);
@@ -70,12 +80,12 @@ function micaptcha_general_options() {
 	<form method="post" action="" id="micaptcha">
 		<?php wp_nonce_field(plugin_basename(__FILE__), 'micaptcha_settings_nonce');//?>
 		<style>
-			#micaptcha tr p {
-				float: left;
-				margin-right: 25px;
-			}
+		#micaptcha tr p {
+			float: left;
+			margin-right: 25px;
+		}
 		</style>
-		<h2><?php _e('Configuration', 'mimi-captcha'); ?></h2>
+		<h2><?php _e('Captcha configuration', 'mimi-captcha'); ?></h2>
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><?php _e('Captcha type', 'mimi-captcha'); ?></th>
@@ -114,9 +124,11 @@ function micaptcha_general_options() {
 					<select name="total_no_of_characters">
 					<?php 
 						for ($i = 2; $i <= 6; $i++) {
-							print '<option value="'.$i.'" ';
-							if ($mi_opt['total_no_of_characters'] == $i) echo 'selected="selected"';
-							print '>'.$i.'</option>';
+							echo '<option value="'.$i.'" ';
+							if ($mi_opt['total_no_of_characters'] == $i) {
+								echo 'selected="selected"';
+							}
+							echo '>'.$i.'</option>';
 						}
 					?>
 					</select>
@@ -147,7 +159,53 @@ function micaptcha_general_options() {
 			</tr>
 		</table>
 
-		<h2><?php _e('Captcha display Options', 'mimi-captcha'); ?></h2>
+		<h2><?php _e('Captcha obfuscation settings', 'mimi-captcha'); ?></h2>
+		<table class="form-table">
+			<tr valign="top">
+				<th scope="row"><?php _e('Adding curved lines', 'mimi-captcha'); ?></th>
+				<td>
+					<p>
+						<label>
+							<input type="radio" name="use_curve" value="yes" <?php if ($mi_opt['use_curve'] === false || $mi_opt['use_curve'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
+						</label>
+					</p>
+					<p>
+						<label><input type="radio" name="use_curve" value="no" <?php if ($mi_opt['use_curve'] == 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
+						</label>
+					</p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e('Adding noise', 'mimi-captcha'); ?></th>
+				<td>
+					<p>
+						<label>
+							<input type="radio" name="use_noise" value="yes" <?php if ($mi_opt['use_noise'] === false || $mi_opt['use_noise'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
+						</label>
+					</p>
+					<p>
+						<label><input type="radio" name="use_noise" value="no" <?php if ($mi_opt['use_noise'] == 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
+						</label>
+					</p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e('Nonlinear distortion', 'mimi-captcha'); ?></th>
+				<td>
+					<p>
+						<label>
+							<input type="radio" name="distort" value="yes" <?php if ($mi_opt['distort'] === false || $mi_opt['distort'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
+						</label>
+					</p>
+					<p>
+						<label><input type="radio" name="distort" value="no" <?php if ($mi_opt['distort'] == 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
+						</label>
+					</p>
+				</td>
+			</tr>
+		</table>
+
+		<h2><?php _e('Captcha display options', 'mimi-captcha'); ?></h2>
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><?php _e('Login form', 'mimi-captcha'); ?></th>
