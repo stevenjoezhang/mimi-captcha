@@ -4,7 +4,7 @@
 * Donate link: https://zhangshuqiao.org/2018-07/WordPress中文验证码/
 * Tags: captcha, captcha code, text captcha, forms captcha, security, protection, anti-spam, spam blocker
 * Requires at least: 3.0
-* Tested up to: 5.0
+* Tested up to: 5.1
 * Requires PHP: 5.2.4
 * Stable tag: 0.0.7
 * License: GPLv3 or later
@@ -70,7 +70,7 @@ This plugin uses SESSION to save user infomation, you can configure redis or mem
 Blacklist
 
 2. 允许用户选择下载字体库
-More user selectable fonts
+Provide more user selectable fonts
 
 ## Installation
 
@@ -143,9 +143,6 @@ Updated for WordPress 5.0
 New feature: whitelist
 
 ### Version 0.0.3
-
-* 更新了readme.txt
-Updated readme.txt
 
 * 规范了多语言支持
 Prepared for localization

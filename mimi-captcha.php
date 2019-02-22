@@ -195,7 +195,9 @@ function micaptcha_ip_in_range($ip, $list) {
 	foreach ($list as $range) {
 		$range = array_map('trim', explode('-', $range));
 		if (count($range) == 1) {
-			if ((string)$ip === (string)$range[0]) return true;
+			if ((string)$ip === (string)$range[0]) {
+				return true;
+			}
 		}
 		else {
 			$low = ip2long($range[0]);
@@ -394,12 +396,7 @@ if (get_option('micaptcha_register') == 'yes') {
 
 //Function to include captcha for register form
 function micaptcha_register($default) {
-	if (micaptcha_whitelist()) {
-		echo MICAPTCHA_WHITELIST;
-	}
-	else {
-		echo MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
-	}
+	echo (micaptcha_whitelist() ? MICAPTCHA_WHITELIST : MICAPTCHA_CONTENT.MICAPTCHA_INPUT);
 	return true;
 }
 
@@ -427,12 +424,7 @@ if (get_option('micaptcha_lost') == 'yes') {
 
 //Function to include captcha for lost password form
 function micaptcha_lostpassword($default) {
-	if (micaptcha_whitelist()) {
-		echo MICAPTCHA_WHITELIST;
-	}
-	else {
-		echo MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
-	}
+	echo (micaptcha_whitelist() ? MICAPTCHA_WHITELIST : MICAPTCHA_CONTENT.MICAPTCHA_INPUT);
 }
 
 function micaptcha_lostpassword_post() {
