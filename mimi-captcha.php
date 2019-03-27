@@ -3,7 +3,7 @@
  * Plugin Name: Mimi Captcha
  * Plugin URI: https://github.com/stevenjoezhang/mimi-captcha
  * Description: 简洁的中文验证码插件。在WordPress登陆、注册或评论表单中加入验证码功能，支持字母、数字、中文和算术验证码。
- * Version: 0.0.7
+ * Version: 0.1.1
  * Author: Shuqiao Zhang
  * Author URI: https://zhangshuqiao.org
  * Text Domain: mimi-captcha
@@ -141,8 +141,13 @@ function micaptcha_admin_menu() {
 require_once('general-options.php');
 
 function micaptcha_admin_notice() {
-	if (substr($_SERVER['PHP_SELF'], -11) == 'plugins.php' && function_exists('admin_url') && !get_option('micaptcha_type')) {
-		echo '<div class="notice notice-warning"><p><strong>'.sprintf(__('Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%1$s">plugin admin page</a> to check settings.', 'mimi-captcha'), admin_url('options-general.php?page=micaptcha_slug')).'</strong></p></div>';
+	if (substr($_SERVER['PHP_SELF'], -11) == 'plugins.php' && function_exists('admin_url')) {
+		if (!get_option('micaptcha_type')) {
+			echo '<div class="notice notice-warning"><p><strong>'.sprintf(__('Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%1$s">plugin admin page</a> to check settings.', 'mimi-captcha'), admin_url('options-general.php?page=micaptcha_slug')).'</strong></p></div>';
+		}
+		if (!function_exists('gd_info')) {
+			echo '<div class="notice notice-error"><p>'.sprintf(__('<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br/>Please see the <a href="%1$s">PHP documentation</a> for more infomation.', 'mimi-captcha'), 'https://secure.php.net/manual/book.image.php').'</p></div>';
+		}
 	}
 }
 

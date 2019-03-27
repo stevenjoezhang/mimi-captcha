@@ -1,6 +1,10 @@
 <?php
 //Function to configure Mimi Captcha for Wordpress
 function micaptcha_general_options() {
+	//Display only for those who can actually deactivate plugins
+	if (!current_user_can('manage_options')) {
+		return;
+	}
 ?>
 <div class="wrap">
 	<h1>Mimi Captcha</h1>
@@ -11,10 +15,10 @@ function micaptcha_general_options() {
 	</div>
 
 <?php
-	if (!current_user_can('manage_options')) {
-		return;
+	if (!function_exists('gd_info')) {
+		echo '<div class="notice notice-error"><p>'.sprintf(__('<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br/>Please see the <a href="%1$s">PHP documentation</a> for more infomation.', 'mimi-captcha'), 'https://secure.php.net/manual/book.image.php').'</p></div>';
 	}
-	//Display only for those who can actually deactivate plugins
+
 	$mi_options = array(
 		'type' => array('alphanumeric', 'alphabets', 'numbers', 'chinese', 'math'),
 		'letters' => array('capital', 'small', 'capitalsmall'),
@@ -78,7 +82,7 @@ function micaptcha_general_options() {
 	//$whitelist_usernames = (is_array($mi_opt['whitelist_usernames']) && !empty($mi_opt['whitelist_usernames'])) ? implode("\n", $mi_opt['whitelist_usernames']) : '';
 ?>
 	<form method="post" action="" id="micaptcha">
-		<?php wp_nonce_field(plugin_basename(__FILE__), 'micaptcha_settings_nonce');//?>
+		<?php wp_nonce_field(plugin_basename(__FILE__), 'micaptcha_settings_nonce'); ?>
 		<style>
 		#micaptcha tr p {
 			float: left;
