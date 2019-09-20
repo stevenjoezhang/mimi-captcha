@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if (isset($_SESSION['captcha_time']) && time() - intval($_SESSION['captcha_time']) < 1) { //限制最短刷新时间
 	$protocol = $_SERVER['HTTPS'] ? 'https://' : 'http://';
@@ -12,29 +13,27 @@ $captcha_flag = isset($_SESSION['captcha_flag']) ? $_SESSION['captcha_flag'] : 7
 
 //The characters that can be used in the CAPTCHA code.
 //Avoid confusing characters (l 1 and i for example)
-//使用的字符，01IO容易混淆，建议不用
+//使用的字符，0OQo 1Iil容易混淆，建议不用
 if (isset($_SESSION['captcha_type']) && $_SESSION['captcha_type'] == 'alphanumeric') {
 	switch ($_SESSION['captcha_letters']) {
-		case 'capital': 
+		case 'capital':
 			$possible_letters = '23456789ABCDEFGHIJKLMNPQRSTUVWXYZ';
-			break;
-		case 'small': 
-			$possible_letters = '23456789abcdefghijkmnpqrstvwxyz';
 			break;
 		case 'capitalsmall':
 			$possible_letters = '23456789abcdefghjkmnpqrstvwxyzABCEFGHJKMNPRSTVWXYZ';
 			break;
+		case 'small':
 		default:
-			$possible_letters = '23456789abcdefghjkmnpqrstvwxyz';
+			$possible_letters = '23456789abcdefghijkmnpqrstvwxyz';
 			break;
 	} 
 }
 elseif (isset($_SESSION['captcha_type']) && $_SESSION['captcha_type'] == 'alphabets') {
 	switch ($_SESSION['captcha_letters']) {
-		case 'capital': 
+		case 'capital':
 			$possible_letters = 'ABCDEFGHIJKLMNPQRSTUVWXYZ';
 			break;
-		case 'small': 
+		case 'small':
 			$possible_letters = 'bcdfghjkmnpqrstvwxyz';
 			break;
 		case 'capitalsmall':
@@ -104,10 +103,8 @@ else {
 	$_SESSION['captcha_code'] = $answer;
 }
 
-if (!class_exists('YL_Security_Secoder')) {
-	require_once('captcha-code.php');
-}
-$captcha = new YL_Security_Secoder($code, $captcha_flag);
+require_once('captcha-image.php');
+$captcha = new Mimi_Captcha_Image($code, $captcha_flag);
 $captcha->entry();
 
 $_SESSION['captcha_time'] = time(); //验证码创建时间 unix timestamp (s)

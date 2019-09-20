@@ -7,7 +7,7 @@
  * @link http://labs.yulans.cn/YL_Security_Secoder
  * @link http://wiki.yulans.cn/docs/yl/security/secoder
  */
-class YL_Security_Secoder {
+class Mimi_Captcha_Image {
 
 	//验证码中的参数
 	protected static $code = array('无', '验', '证', '码');
