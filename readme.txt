@@ -6,7 +6,7 @@
 * Requires at least: 3.0
 * Tested up to: 5.2
 * Requires PHP: 5.2.4
-* Stable tag: 0.1.1
+* Stable tag: 0.1.2
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -110,23 +110,28 @@ Uninstalling is as simple as deactivating and deleting the plugin.
 
 ## Change Log
 
+### Version 0.1.2
+
+* 优化代码风格
+Code style update
+
 ### Version 0.1.1
 
 * 增加了更多提示信息
-Added more alerts
+Add more alerts
 
 ### Version 0.0.7
 
 * 优化了验证码生成算法
-Optimized Captcha generation algorithm
+Optimize Captcha generation algorithm
 
 * 增加了更多设置项
-Added more options
+Add more options
 
 ### Version 0.0.6
 
 * 升级了验证码生成算法
-Upgraded Captcha generation algorithm
+Upgrade Captcha generation algorithm
 
 * 统一了错误信息的提示方式
 Unify the error messages prompted
@@ -134,15 +139,15 @@ Unify the error messages prompted
 ### Version 0.0.5
 
 * 更新了样式表，适用更多的主题
-Updated stylesheet
+Update stylesheet
 
 * 增加了可用字体
-Added more fonts
+Add more fonts
 
 ### Version 0.0.4
 
 * 针对WordPress 5.0版本更新
-Updated for WordPress 5.0
+Update for WordPress 5.0
 
 * 新功能：白名单
 New feature: whitelist
@@ -150,7 +155,7 @@ New feature: whitelist
 ### Version 0.0.3
 
 * 规范了多语言支持
-Prepared for localization
+Prepare for localization
 
 ### Version 0.0.2
 
