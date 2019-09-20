@@ -1,7 +1,7 @@
 <?php
-//Function to configure Mimi Captcha for Wordpress
+// Function to configure Mimi Captcha for Wordpress
 function micaptcha_general_options() {
-	//Display only for those who can actually deactivate plugins
+	// Display only for those who can actually deactivate plugins
 	if (!current_user_can('manage_options')) {
 		return;
 	}
@@ -36,7 +36,7 @@ function micaptcha_general_options() {
 		'comments' => array('yes', 'no'),
 		'registered' => array('yes', 'no'),
 		'whitelist_ips' => array()
-		//'whitelist_usernames' => array()
+		// 'whitelist_usernames' => array()
 	);
 	if (isset($_POST['submit']) && check_admin_referer(plugin_basename(__FILE__), 'micaptcha_settings_nonce')) {
 ?>
@@ -62,7 +62,7 @@ function micaptcha_general_options() {
 					}
 					update_option('micaptcha_'.$mi_option, $data);
 				}
-				else if (in_array($_POST[$mi_option], $mi_value, true)) { //Validate POST calls
+				else if (in_array($_POST[$mi_option], $mi_value, true)) { // Validate POST calls
 					$mi_index = array_search($_POST[$mi_option], $mi_value, true);
 					if (isset($mi_value[$mi_index])) {
 						update_option('micaptcha_'.$mi_option, $mi_value[$mi_index]);
@@ -79,7 +79,7 @@ function micaptcha_general_options() {
 		$mi_opt[$mi_option] = get_option('micaptcha_'.$mi_option);
 	}
 	$whitelist_ips = (is_array($mi_opt['whitelist_ips']) && !empty($mi_opt['whitelist_ips'])) ? implode("\n", $mi_opt['whitelist_ips']) : '';
-	//$whitelist_usernames = (is_array($mi_opt['whitelist_usernames']) && !empty($mi_opt['whitelist_usernames'])) ? implode("\n", $mi_opt['whitelist_usernames']) : '';
+	// $whitelist_usernames = (is_array($mi_opt['whitelist_usernames']) && !empty($mi_opt['whitelist_usernames'])) ? implode("\n", $mi_opt['whitelist_usernames']) : '';
 ?>
 	<form method="post" action="" id="micaptcha">
 		<?php wp_nonce_field(plugin_basename(__FILE__), 'micaptcha_settings_nonce'); ?>
@@ -126,7 +126,7 @@ function micaptcha_general_options() {
 				<th scope="row"><?php _e('Total number of Captcha characters', 'mimi-captcha'); ?></th>
 				<td>
 					<select name="total_no_of_characters">
-					<?php 
+					<?php
 						for ($i = 2; $i <= 6; $i++) {
 							echo '<option value="'.$i.'" ';
 							if ($mi_opt['total_no_of_characters'] == $i) {

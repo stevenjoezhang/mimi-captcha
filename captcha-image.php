@@ -9,19 +9,19 @@
  */
 class Mimi_Captcha_Image {
 
-	//验证码中的参数
+	// 验证码中的参数
 	protected static $code = array('无', '验', '证', '码');
 	protected static $bg = null;
-	protected static $fonts = array(); //可用的字体
-	protected static $image_L = 0; //验证码图片长
-	protected static $image_H = 0; //验证码图片宽
-	protected static $image = null; //验证码图片实例
+	protected static $fonts = array(); // 可用的字体
+	protected static $image_L = 0; // 验证码图片长
+	protected static $image_H = 0; // 验证码图片宽
+	protected static $image = null; // 验证码图片实例
 
-	//Settings: You can customize the captcha here
-	protected static $fontSize = 30; //验证码字体大小(px)
-	protected static $useCurve = true; //是否画混淆曲线
-	protected static $useNoise = true; //是否添加杂点
-	protected static $distort = true; //是否扭曲
+	// Settings: You can customize the captcha here
+	protected static $fontSize = 30; // 验证码字体大小(px)
+	protected static $useCurve = true; // 是否画混淆曲线
+	protected static $useNoise = true; // 是否添加杂点
+	protected static $distort = true; // 是否扭曲
 
 /**
  * 构造函数
@@ -29,9 +29,9 @@ class Mimi_Captcha_Image {
  * @var int   $flag
  */
 	function __construct($code, $flag = 7) {
-		//验证码文字
+		// 验证码文字
 		self::$code = $code;
-		//设置背景颜色
+		// 设置背景颜色
 		self::$bg = array(
 			mt_rand(236, 244),
 			mt_rand(242, 252),
@@ -47,7 +47,7 @@ class Mimi_Captcha_Image {
  * 内容为self::$code，字体和颜色随机
  */
 	public static function entry() {
-		//验证码使用随机字体
+		// 验证码使用随机字体
 		$all_fonts = scandir(dirname(__FILE__).'/fonts/');
 		foreach ($all_fonts as $fontname) {
 			if (preg_match('/(.*)\.ttf/', $fontname)) {
@@ -57,11 +57,11 @@ class Mimi_Captcha_Image {
 		if (count(self::$fonts) == 0) {
 			die("Error: No fonts are available. Please upload fonts to /wp-content/plugins/mimi-captcha/fonts/ folder.");
 		}
-		//图片宽(px)
+		// 图片宽(px)
 		self::$image_L || self::$image_L = self::$fontSize * (count(self::$code) * 1.6 + 0.8);
-		//图片高(px)
+		// 图片高(px)
 		self::$image_H || self::$image_H = self::$fontSize * 2;
-		//建立一幅 self::$image_L x self::$image_H 的图像
+		// 建立一幅 self::$image_L x self::$image_H 的图像
 		self::$image = imagecreate(self::$image_L, self::$image_H);
 		imagecolorallocate(
 			self::$image,
@@ -70,39 +70,39 @@ class Mimi_Captcha_Image {
 			self::$bg[2]
 		);
 		if (self::$useCurve) {
-			self::writeCurve(); //绘干扰线
+			self::writeCurve(); // 绘干扰线
 		}
-		//绘验证码
+		// 绘验证码
 		for ($i = 0; $i < count(self::$code); $i++) {
-			$codeNX = self::$fontSize * mt_rand(16 * $i + 4, 16 * $i + 12) / 10; //验证码第N个字符的左边距
+			$codeNX = self::$fontSize * mt_rand(16 * $i + 4, 16 * $i + 12) / 10; // 验证码第N个字符的左边距
 			$ttf = dirname(__FILE__).'/fonts/'.self::$fonts[mt_rand(0, count(self::$fonts) - 1)];
-			//写一个验证码字符
+			// 写一个验证码字符
 			imagettftext(
 				self::$image,
 				self::$fontSize,
 				mt_rand(-20, 20),
 				$codeNX,
 				self::$fontSize * 3 / 2,
-				self::color(0, 120), //验证码文字颜色
+				self::color(0, 120), // 验证码文字颜色
 				$ttf,
 				self::$code[$i]
 			);
 		}
 		if (self::$distort) {
-			self::distortion(); //扭曲验证码
+			self::distortion(); // 扭曲验证码
 		}
 		if (self::$useNoise) {
-			self::writeNoise(); //绘杂点
+			self::writeNoise(); // 绘杂点
 		}
-		//Show captcha image in the html page
+		// Show captcha image in the html page
 		header('Cache-Control: private, max-age=0, no-store, no-cache, must-revalidate');
 		header('Cache-Control: post-check=0, pre-check=0', false);
 		header('Pragma: no-cache');
-		header('Content-Type: image/png'); //Defining the image type to be shown in browser window
+		header('Content-Type: image/png'); // Defining the image type to be shown in browser window
 
-		//输出图像
-		imagepng(self::$image); //Showing the image
-		imagedestroy(self::$image); //Destroying the image instance
+		// 输出图像
+		imagepng(self::$image); // Showing the image
+		imagedestroy(self::$image); // Destroying the image instance
 	}
 
 /**
@@ -110,7 +110,7 @@ class Mimi_Captcha_Image {
  * 返回值为imagecolorallocate的索引
  */
 	protected static function color($low, $high) {
-		//Random color
+		// Random color
 		return imagecolorallocate(
 			self::$image,
 			mt_rand($low, $high),
@@ -131,17 +131,17 @@ class Mimi_Captcha_Image {
  * b：偏置，表示波形在Y轴的位置关系或纵向移动距离（上加下减）
  */
 	protected static function writeCurve() {
-		$A = mt_rand(1, self::$image_H / 2); //振幅
-		$T = mt_rand(self::$image_H * 3 / 2, self::$image_L * 2); //周期
-		$omega = (2 * M_PI) / $T; //圆频率
-		$phi = mt_rand(-self::$image_H / 4, self::$image_H / 4); //X轴方向偏移量
-		$b = mt_rand(-self::$image_H / 4, self::$image_H / 4); //Y轴方向偏移量
-		$px1 = 0; //曲线横坐标起始位置
-		$px2 = mt_rand(self::$image_L / 2, self::$image_L * 2 / 3); //曲线横坐标结束位置
+		$A = mt_rand(1, self::$image_H / 2); // 振幅
+		$T = mt_rand(self::$image_H * 3 / 2, self::$image_L * 2); // 周期
+		$omega = (2 * M_PI) / $T; // 圆频率
+		$phi = mt_rand(-self::$image_H / 4, self::$image_H / 4); // X轴方向偏移量
+		$b = mt_rand(-self::$image_H / 4, self::$image_H / 4); // Y轴方向偏移量
+		$px1 = 0; // 曲线横坐标起始位置
+		$px2 = mt_rand(self::$image_L / 2, self::$image_L * 2 / 3); // 曲线横坐标结束位置
 		$color = self::color(120, 160);
 		for ($px = $px1; $px <= $px2; $px += 0.9) {
 			if ($omega != 0) {
-				$py = $A * sin($omega * $px + $phi) + $b + self::$image_H / 2; //y=Asin(ωx+φ)+b
+				$py = $A * sin($omega * $px + $phi) + $b + self::$image_H / 2; // y=Asin(ωx+φ)+b
 				$i = (int) ((self::$fontSize - 6) / 4);
 				while ($i > 0) {
 					imagesetpixel(
@@ -192,13 +192,13 @@ class Mimi_Captcha_Image {
 			self::$bg[1],
 			self::$bg[2]
 		);
-		$phase = M_PI * mt_rand(-1, 1); //初相位
-		$offset = 0; //偏置
-		$amplitude = mt_rand(4, 6); //振幅
-		$round = 2; //扭2个周期
+		$phase = M_PI * mt_rand(-1, 1); // 初相位
+		$offset = 0; // 偏置
+		$amplitude = mt_rand(4, 6); // 振幅
+		$round = 2; // 扭2个周期
 		for ($i = 0; $i < self::$image_L; $i++) {
 			$posY = round(sin($i * $round * 2 * M_PI / self::$image_L + $phase) * $amplitude + $offset);
-			//根据正弦曲线，计算偏移量
+			// 根据正弦曲线，计算偏移量
 			imagecopy($distortion, self::$image, $i, $posY, $i, 0, 1, self::$image_H);
 		}
 		imagedestroy(self::$image);
@@ -212,9 +212,9 @@ class Mimi_Captcha_Image {
 	protected static function writeNoise() {
 		$noiseSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ*#';
 		for ($i = 0; $i < 5; $i++) {
-			$noiseColor = self::color(160, 225); //杂点颜色
+			$noiseColor = self::color(160, 225); // 杂点颜色
 			for ($j = 0; $j < 4; $j++) {
-				//绘杂点
+				// 绘杂点
 				imagestring(
 					self::$image,
 					5,
