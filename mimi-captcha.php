@@ -46,7 +46,7 @@ switch (get_option('micaptcha_loading_mode')) {
 	case 'oninput':
 		define('MICAPTCHA_SCRIPT', '<script>
 			var captcha = document.getElementById("micaptcha"),
-				MiCaptchaFlag = false;		
+				MiCaptchaFlag = false;
 			function loadMiCaptcha() {
 				if (MiCaptchaFlag) return;
 				MiCaptchaFlag = true;
@@ -368,7 +368,7 @@ function micaptcha_check_extra_register_fields($login, $email, $errors) {
 //Storing WordPress user-selected password into database on registration
 function micaptcha_register_extra_fields($user_id) {
 	$userdata = array();
-	
+
 	$userdata['ID'] = $user_id;
 	if (isset($_POST['password']) && $_POST['password'] !== '') {
 		$userdata['user_pass'] = sanitize_text_field($_POST['password']); //Sanitize
