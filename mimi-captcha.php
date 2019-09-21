@@ -37,7 +37,7 @@ switch (get_option('micaptcha_loading_mode')) {
 		(function() {
 			window.addEventListener("load", function() {
 				var captcha = document.getElementById("micaptcha");
-				captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand='.mt_rand().'";
+				captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand=" + Math.random();
 				captcha.onclick = function() {
 					captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand=" + Math.random();
 				}
@@ -48,19 +48,17 @@ switch (get_option('micaptcha_loading_mode')) {
 	case 'oninput':
 		define('MICAPTCHA_SCRIPT', '<script>
 		(function() {
-			var captcha = document.getElementById("micaptcha"),
-				MiCaptchaFlag = false;
+			var captcha = document.getElementById("micaptcha");
 			function loadMiCaptcha() {
-				if (MiCaptchaFlag) return;
-				MiCaptchaFlag = true;
-				captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand='.mt_rand().'";
-				captcha.onclick = function() {
-					captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand=" + Math.random();
-				}
+				captcha.setAttribute("loaded", true);
+				captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand=" + Math.random();
 			}
 			window.addEventListener("load", function() {
 				document.querySelectorAll("input, textarea").forEach(function(element) {
-					element.addEventListener("input", loadMiCaptcha);
+					element.addEventListener("input", function() {
+						if (captcha.getAttribute("loaded")) return;
+						loadMiCaptcha();
+					});
 				});
 			});
 			captcha.onclick = loadMiCaptcha;
@@ -71,7 +69,7 @@ switch (get_option('micaptcha_loading_mode')) {
 		define('MICAPTCHA_SCRIPT', '<script>
 		(function() {
 			var captcha = document.getElementById("micaptcha");
-			captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand='.mt_rand().'";
+			captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand=" + Math.random();
 			captcha.onclick = function() {
 				captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand=" + Math.random();
 			}
