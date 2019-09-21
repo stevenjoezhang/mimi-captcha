@@ -84,13 +84,13 @@ define('MICAPTCHA_WHITELIST', '<p class="form-captcha">
 		<label>'.__('You are in the whitelist', 'mimi-captcha').'</label>
 		</p>');
 define('MICAPTCHA_CONTENT', '<p class="form-captcha">
-		<img alt="Captcha Code" id="micaptcha" src="'.MICAPTCHA_DIR_URL.'default.png" style="max-width: 100%;"/>
+		<img alt="Captcha Code" id="micaptcha" src="'.MICAPTCHA_DIR_URL.'default.png" style="max-width: 100%;">
 		<span style="display: block; clear: both;"></span>
 		<label>'.__('Click the image to refresh', 'mimi-captcha').'</label>
 		<span style="display: block; clear: both;"></span>'.MICAPTCHA_SCRIPT);
 define('MICAPTCHA_INPUT', '<label for="url">'.__('Captcha', 'mimi-captcha').' <span class="required">*</span></label>
 		<!-- Don`t Ask Why Not `for="captcha_code"`. You are Not Expected to Understand This. -->
-		<input id="captcha_code" name="captcha_code" type="text" size="30" maxlength="200" autocomplete="off" style="display: block;" placeholder="'.__('Type the Captcha above', 'mimi-captcha').'"/>
+		<input id="captcha_code" name="captcha_code" type="text" size="30" maxlength="200" autocomplete="off" style="display: block;" placeholder="'.__('Type the Captcha above', 'mimi-captcha').'">
 		</p>');
 
 // Hook to store the plugin status
@@ -146,7 +146,7 @@ function micaptcha_admin_notice() {
 			echo '<div class="notice notice-warning"><p><strong>'.sprintf(__('Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%1$s">plugin admin page</a> to check settings.', 'mimi-captcha'), admin_url('options-general.php?page=micaptcha_slug')).'</strong></p></div>';
 		}
 		if (!function_exists('gd_info')) {
-			echo '<div class="notice notice-error"><p>'.sprintf(__('<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br/>Please see the <a href="%1$s">PHP documentation</a> for more infomation.', 'mimi-captcha'), 'https://secure.php.net/manual/book.image.php').'</p></div>';
+			echo '<div class="notice notice-error"><p>'.sprintf(__('<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br>Please see the <a href="%1$s">PHP documentation</a> for more infomation.', 'mimi-captcha'), 'https://secure.php.net/manual/book.image.php').'</p></div>';
 		}
 	}
 }
@@ -335,14 +335,14 @@ function micaptcha_show_extra_register_fields() {
 	?>
 	<p>
 		<label for="password"><?php _e('Password'); ?>
-			<br/>
-			<input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password"/>
+			<br>
+			<input id="password" class="input" type="password" tabindex="30" size="25" value="" name="password">
 		</label>
 	</p>
 	<p>
 		<label for="repeat_password"><?php _e('Repeat password', 'mimi-captcha'); ?>
-			<br/>
-			<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password"/>
+			<br>
+			<input id="repeat_password" class="input" type="password" tabindex="40" size="25" value="" name="repeat_password">
 		</label>
 	</p>
 	<?php
