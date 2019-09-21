@@ -89,7 +89,7 @@ define('MICAPTCHA_CONTENT', '<p class="form-captcha">
 		<span style="display: block; clear: both;"></span>'.MICAPTCHA_SCRIPT);
 define('MICAPTCHA_INPUT', '<label for="url">'.__('Captcha', 'mimi-captcha').' <span class="required">*</span></label>
 		<!-- Don`t Ask Why Not `for="captcha_code"`. You are Not Expected to Understand This. -->
-		<input id="captcha_code" name="captcha_code" type="text" size="30" maxlength="200" autocomplete="off" style="display: block;" placeholder="'.__('Type the Captcha above', 'mimi-captcha').'">
+		<input id="captcha_code" name="captcha_code" type="text" size="30" maxlength="200" autocomplete="off" style="display: block;">
 		</p>');
 
 // Hook to store the plugin status

@@ -26,9 +26,6 @@ msgstr "您在白名单中"
 msgid "Click the image to refresh"
 msgstr "看不清？点击图片刷新！"
 
-msgid "Type the Captcha above"
-msgstr "请输入验证码"
-
 msgid "Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%1$s">plugin admin page</a> to check settings."
 msgstr "感谢您使用Mimi Captcha。插件暂未完成配置，请您前往<a href="%1$s">插件配置页</a>检查设置。"
 
