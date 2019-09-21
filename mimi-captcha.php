@@ -59,14 +59,9 @@ switch (get_option('micaptcha_loading_mode')) {
 				}
 			}
 			window.addEventListener("load", function() {
-				var input = document.getElementsByTagName("input"),
-					textarea = document.getElementsByTagName("textarea");
-				for (var i = 0; i < input.length; i++) {
-					input[i].addEventListener("input", loadMiCaptcha);
-				}
-				for (var i = 0; i < textarea.length; i++) {
-					textarea[i].addEventListener("input", loadMiCaptcha);
-				}
+				document.querySelectorAll("input, textarea").forEach(function(element) {
+					element.addEventListener("input", loadMiCaptcha);
+				});
 			});
 			captcha.onclick = loadMiCaptcha;
 		})();
