@@ -34,6 +34,7 @@ define('MICAPTCHA_DIR_URL', plugin_dir_url(__FILE__));
 switch (get_option('micaptcha_loading_mode')) {
 	case 'onload':
 		define('MICAPTCHA_SCRIPT', '<script>
+		(function() {
 			window.addEventListener("load", function() {
 				var captcha = document.getElementById("micaptcha");
 				captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand='.mt_rand().'";
@@ -41,10 +42,12 @@ switch (get_option('micaptcha_loading_mode')) {
 					captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand=" + Math.random();
 				}
 			});
+		})();
 		</script>');
 		break;
 	case 'oninput':
 		define('MICAPTCHA_SCRIPT', '<script>
+		(function() {
 			var captcha = document.getElementById("micaptcha"),
 				MiCaptchaFlag = false;
 			function loadMiCaptcha() {
@@ -66,15 +69,18 @@ switch (get_option('micaptcha_loading_mode')) {
 				}
 			});
 			captcha.onclick = loadMiCaptcha;
+		})();
 		</script>');
 		break;
 	default:
 		define('MICAPTCHA_SCRIPT', '<script>
+		(function() {
 			var captcha = document.getElementById("micaptcha");
 			captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand='.mt_rand().'";
 			captcha.onclick = function() {
 				captcha.src = "'.MICAPTCHA_DIR_URL.'captcha.php?rand=" + Math.random();
 			}
+		})();
 		</script>');
 		break;
 }
