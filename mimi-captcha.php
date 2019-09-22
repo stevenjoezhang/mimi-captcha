@@ -30,7 +30,7 @@
 
 load_plugin_textdomain('mimi-captcha', false, dirname(plugin_basename(__FILE__)).'/languages');
 define('MICAPTCHA_DIR_URL', plugin_dir_url(__FILE__));
-// define('MICAPTCHA_DIR', dirname(__FILE__));
+
 switch (get_option('micaptcha_loading_mode')) {
 	case 'onload':
 		define('MICAPTCHA_SCRIPT', '<script>
@@ -452,15 +452,8 @@ function micaptcha_lostpassword_errors_wp() {
 /* Captcha for comments starts here */
 
 if (get_option('micaptcha_comments') === 'yes') {
-	global $wp_version;
-	if (version_compare($wp_version, '3', '>=')) { // For wp 3.0+
-		add_action('comment_form_after_fields', 'micaptcha_comment_form', 1);
-		add_action('comment_form_logged_in_after', 'micaptcha_comment_form', 1);
-	}
-	// For wp before ver 3.0
-	else {
-		add_action('comment_form', 'micaptcha_comment_form');
-	}
+	add_action('comment_form_after_fields', 'micaptcha_comment_form', 1);
+	add_action('comment_form_logged_in_after', 'micaptcha_comment_form', 1);
 	add_filter('preprocess_comment', 'micaptcha_comment_post');
 }
 
