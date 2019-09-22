@@ -94,6 +94,7 @@ define('MICAPTCHA_INPUT', '<label for="url">'.__('Captcha', 'mimi-captcha').' <s
 
 // Hook to initialize sessions
 add_action('init', 'micaptcha_init_sessions');
+add_filter('pre_http_request', 'micaptcha_pre_http_request', 10, 3);
 
 // Hook to initalize the admin menu
 add_action('admin_menu', 'micaptcha_admin_menu');
@@ -106,12 +107,30 @@ add_filter('admin_footer_text', 'micaptcha_admin_footer', 1, 2);
 
 function micaptcha_init_sessions() {
 	if (!session_id()) {
-		session_start();
+		@session_start();
 	}
 	$_SESSION['captcha_type'] = get_option('micaptcha_type');
 	$_SESSION['captcha_letters'] = get_option('micaptcha_letters');
 	$_SESSION['total_no_of_characters'] = get_option('micaptcha_total_no_of_characters');
 	$_SESSION['captcha_flag'] = ((get_option('micaptcha_use_curve') == 'yes') << 2) | ((get_option('micaptcha_use_noise') == 'yes') << 1) | (get_option('micaptcha_distort') == 'yes');
+}
+
+// Write session to disk to prevent cURL time-out which may occur with
+// WordPress (since 4.9.2, see https://core.trac.wordpress.org/ticket/43358),
+// or plugins such as "Health Check".
+
+// See: https://plugins.trac.wordpress.org/browser/ninjafirewall/trunk/lib/utils.php
+function micaptcha_pre_http_request($preempt, $r, $url) {
+	if (isset($_SESSION)) {
+		if (function_exists('get_site_url')) {
+			$parse = parse_url(get_site_url());
+			$s_url = @$parse['scheme'] . "://{$parse['host']}";
+			if (strpos( $url, $s_url ) === 0) {
+				@session_write_close();
+			}
+		}
+	}
+	return false;
 }
 
 // To add the menus in the admin section
