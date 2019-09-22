@@ -92,10 +92,6 @@ define('MICAPTCHA_INPUT', '<label for="url">'.__('Captcha', 'mimi-captcha').' <s
 		<input id="captcha_code" name="captcha_code" type="text" size="30" maxlength="200" autocomplete="off" style="display: block;">
 		</p>');
 
-// Hook to store the plugin status
-register_activation_hook(__FILE__, 'micaptcha_enabled');
-register_deactivation_hook(__FILE__, 'micaptcha_disabled');
-
 // Hook to initialize sessions
 add_action('init', 'micaptcha_init_sessions');
 
@@ -107,14 +103,6 @@ add_action('admin_notices', 'micaptcha_admin_notice');
 
 add_filter('plugin_action_links', 'micaptcha_plugin_actions', 10, 2);
 add_filter('admin_footer_text', 'micaptcha_admin_footer', 1, 2);
-
-function micaptcha_enabled() {
-	update_option('micaptcha_status', 'enabled');
-}
-
-function micaptcha_disabled() {
-	update_option('micaptcha_status', 'disabled');
-}
 
 function micaptcha_init_sessions() {
 	if (!session_id()) {
@@ -222,7 +210,7 @@ function micaptcha_ip_in_range($ip, $list) {
 	return false;
 }
 
-function micaptcha_whitelist() { //黑名单同理
+function micaptcha_whitelist() { // 黑名单同理
 	$whitelist_ips = get_option('micaptcha_whitelist_ips');
 	// $whitelist_usernames = get_option('micaptcha_whitelist_usernames');
 	if (micaptcha_ip_in_range(micaptcha_get_ip(), (array)$whitelist_ips)) {
@@ -370,7 +358,7 @@ function micaptcha_register_extra_fields($user_id) {
 
 	$userdata['ID'] = $user_id;
 	if (isset($_POST['password']) && $_POST['password'] !== '') {
-		$userdata['user_pass'] = sanitize_text_field($_POST['password']); //Sanitize
+		$userdata['user_pass'] = sanitize_text_field($_POST['password']); // Sanitize
 	}
 	wp_update_user($userdata);
 }
