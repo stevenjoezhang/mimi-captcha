@@ -54,7 +54,7 @@ class Mimi_Captcha_Image {
 				self::$fonts[] = $fontname;
 			}
 		}
-		if (count(self::$fonts) == 0) {
+		if (count(self::$fonts) === 0) {
 			die("Error: No fonts are available. Please upload fonts to /wp-content/plugins/mimi-captcha/fonts/ folder.");
 		}
 		// 图片宽(px)

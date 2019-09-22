@@ -52,7 +52,7 @@ function micaptcha_general_options() {
 					$data = (!empty($_POST[$mi_option])) ? explode("\n", str_replace("\r", "", stripslashes($_POST[$mi_option]))) : array();
 					if (!empty($data)) {
 						foreach ($data as $key => $ip) {
-							if ('' == $ip) {
+							if ('' === $ip) {
 								unset($data[$key]);
 							}
 							else {
@@ -95,11 +95,11 @@ function micaptcha_general_options() {
 				<th scope="row"><?php _e('Captcha type', 'mimi-captcha'); ?></th>
 				<td>
 					<select name="type">
-						<option value="alphanumeric" <?php if ($mi_opt['type'] == 'alphanumeric') echo 'selected="selected"'; ?>><?php _e('Alphanumeric', 'mimi-captcha'); ?></option>
-						<option value="alphabets" <?php if ($mi_opt['type'] == 'alphabets') echo 'selected="selected"'; ?>><?php _e('Alphabets', 'mimi-captcha'); ?></option>
-						<option value="numbers" <?php if ($mi_opt['type'] == 'numbers') echo 'selected="selected"'; ?>><?php _e('Numbers', 'mimi-captcha'); ?></option>
-						<option value="chinese" <?php if ($mi_opt['type'] == 'chinese') echo 'selected="selected"'; ?>><?php _e('Chinese chars', 'mimi-captcha'); ?></option>
-						<option value="math" <?php if ($mi_opt['type'] == 'math') echo 'selected="selected"'; ?>><?php _e('Math Captcha', 'mimi-captcha'); ?></option>
+						<option value="alphanumeric" <?php if ($mi_opt['type'] === 'alphanumeric') echo 'selected="selected"'; ?>><?php _e('Alphanumeric', 'mimi-captcha'); ?></option>
+						<option value="alphabets" <?php if ($mi_opt['type'] === 'alphabets') echo 'selected="selected"'; ?>><?php _e('Alphabets', 'mimi-captcha'); ?></option>
+						<option value="numbers" <?php if ($mi_opt['type'] === 'numbers') echo 'selected="selected"'; ?>><?php _e('Numbers', 'mimi-captcha'); ?></option>
+						<option value="chinese" <?php if ($mi_opt['type'] === 'chinese') echo 'selected="selected"'; ?>><?php _e('Chinese chars', 'mimi-captcha'); ?></option>
+						<option value="math" <?php if ($mi_opt['type'] === 'math') echo 'selected="selected"'; ?>><?php _e('Math Captcha', 'mimi-captcha'); ?></option>
 					</select>
 				</td>
 			</tr>
@@ -107,9 +107,9 @@ function micaptcha_general_options() {
 				<th scope="row"><?php _e('Captcha letters type', 'mimi-captcha'); ?></th>
 				<td>
 					<select name="letters">
-						<option value="capital" <?php if ($mi_opt['letters'] == 'capital') echo 'selected="selected"'; ?>><?php _e('Capital letters only', 'mimi-captcha'); ?></option>
-						<option value="small" <?php if ($mi_opt['letters'] == 'small') echo 'selected="selected"'; ?>><?php _e('Small letters only', 'mimi-captcha'); ?></option>
-						<option value="capitalsmall" <?php if ($mi_opt['letters'] == 'capitalsmall') echo 'selected="selected"'; ?>><?php _e('Capital & small letters', 'mimi-captcha'); ?></option>
+						<option value="capital" <?php if ($mi_opt['letters'] === 'capital') echo 'selected="selected"'; ?>><?php _e('Capital letters only', 'mimi-captcha'); ?></option>
+						<option value="small" <?php if ($mi_opt['letters'] === 'small') echo 'selected="selected"'; ?>><?php _e('Small letters only', 'mimi-captcha'); ?></option>
+						<option value="capitalsmall" <?php if ($mi_opt['letters'] === 'capitalsmall') echo 'selected="selected"'; ?>><?php _e('Capital & small letters', 'mimi-captcha'); ?></option>
 					</select>
 				</td>
 			</tr>
@@ -117,8 +117,8 @@ function micaptcha_general_options() {
 				<th scope="row"><?php _e('Case sensitive', 'mimi-captcha'); ?></th>
 				<td>
 					<select name="case_sensitive">
-						<option value="sensitive" <?php if ($mi_opt['case_sensitive'] == 'sensitive') echo 'selected="selected"'; ?>><?php _e('Sensitive', 'mimi-captcha'); ?></option>
-						<option value="insensitive" <?php if ($mi_opt['case_sensitive'] == 'insensitive') echo 'selected="selected"'; ?>><?php _e('Insensitive', 'mimi-captcha'); ?></option>
+						<option value="sensitive" <?php if ($mi_opt['case_sensitive'] === 'sensitive') echo 'selected="selected"'; ?>><?php _e('Sensitive', 'mimi-captcha'); ?></option>
+						<option value="insensitive" <?php if ($mi_opt['case_sensitive'] === 'insensitive') echo 'selected="selected"'; ?>><?php _e('Insensitive', 'mimi-captcha'); ?></option>
 					</select>
 				</td>
 			</tr>
@@ -129,7 +129,7 @@ function micaptcha_general_options() {
 					<?php
 						for ($i = 2; $i <= 6; $i++) {
 							echo '<option value="'.$i.'" ';
-							if ($mi_opt['total_no_of_characters'] == $i) {
+							if ($mi_opt['total_no_of_characters'] === $i) {
 								echo 'selected="selected"';
 							}
 							echo '>'.$i.'</option>';
@@ -142,12 +142,12 @@ function micaptcha_general_options() {
 				<th scope="row"><?php _e('Captcha expiration time', 'mimi-captcha'); ?></th>
 				<td>
 					<select name="timeout_time">
-						<option value="30" <?php if ($mi_opt['timeout_time'] == 30) echo 'selected="selected"'; ?>><?php _e('30 seconds', 'mimi-captcha'); ?></option>
-						<option value="60" <?php if ($mi_opt['timeout_time'] == 60) echo 'selected="selected"'; ?>><?php _e('1 min', 'mimi-captcha'); ?></option>
-						<option value="120" <?php if ($mi_opt['timeout_time'] == 120) echo 'selected="selected"'; ?>><?php _e('2 min', 'mimi-captcha'); ?></option>
-						<option value="300" <?php if ($mi_opt['timeout_time'] == 300) echo 'selected="selected"'; ?>><?php _e('5 min', 'mimi-captcha'); ?></option>
-						<option value="600" <?php if ($mi_opt['timeout_time'] == 600) echo 'selected="selected"'; ?>><?php _e('10 min', 'mimi-captcha'); ?></option>
-						<option value="0" <?php if ($mi_opt['timeout_time'] == 0) echo 'selected="selected"'; ?>><?php _e('Unlimited', 'mimi-captcha'); ?></option>
+						<option value="30" <?php if ($mi_opt['timeout_time'] === 30) echo 'selected="selected"'; ?>><?php _e('30 seconds', 'mimi-captcha'); ?></option>
+						<option value="60" <?php if ($mi_opt['timeout_time'] === 60) echo 'selected="selected"'; ?>><?php _e('1 min', 'mimi-captcha'); ?></option>
+						<option value="120" <?php if ($mi_opt['timeout_time'] === 120) echo 'selected="selected"'; ?>><?php _e('2 min', 'mimi-captcha'); ?></option>
+						<option value="300" <?php if ($mi_opt['timeout_time'] === 300) echo 'selected="selected"'; ?>><?php _e('5 min', 'mimi-captcha'); ?></option>
+						<option value="600" <?php if ($mi_opt['timeout_time'] === 600) echo 'selected="selected"'; ?>><?php _e('10 min', 'mimi-captcha'); ?></option>
+						<option value="0" <?php if ($mi_opt['timeout_time'] === 0) echo 'selected="selected"'; ?>><?php _e('Unlimited', 'mimi-captcha'); ?></option>
 					</select>
 				</td>
 			</tr>
@@ -155,9 +155,9 @@ function micaptcha_general_options() {
 				<th scope="row"><?php _e('Captcha loading mode', 'mimi-captcha'); ?></th>
 				<td>
 					<select name="loading_mode">
-						<option value="default" <?php if ($mi_opt['loading_mode'] == 'default') echo 'selected="selected"'; ?>><?php _e('Default', 'mimi-captcha'); ?></option>
-						<option value="onload" <?php if ($mi_opt['loading_mode'] == 'onload') echo 'selected="selected"'; ?>><?php _e('On page load', 'mimi-captcha'); ?></option>
-						<option value="oninput" <?php if ($mi_opt['loading_mode'] == 'oninput') echo 'selected="selected"'; ?>><?php _e('On user input', 'mimi-captcha'); ?></option>
+						<option value="default" <?php if ($mi_opt['loading_mode'] === 'default') echo 'selected="selected"'; ?>><?php _e('Default', 'mimi-captcha'); ?></option>
+						<option value="onload" <?php if ($mi_opt['loading_mode'] === 'onload') echo 'selected="selected"'; ?>><?php _e('On page load', 'mimi-captcha'); ?></option>
+						<option value="oninput" <?php if ($mi_opt['loading_mode'] === 'oninput') echo 'selected="selected"'; ?>><?php _e('On user input', 'mimi-captcha'); ?></option>
 					</select>
 				</td>
 			</tr>
@@ -170,11 +170,11 @@ function micaptcha_general_options() {
 				<td>
 					<p>
 						<label>
-							<input type="radio" name="use_curve" value="yes" <?php if ($mi_opt['use_curve'] === false || $mi_opt['use_curve'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
+							<input type="radio" name="use_curve" value="yes" <?php if ($mi_opt['use_curve'] === false || $mi_opt['use_curve'] === 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
 						</label>
 					</p>
 					<p>
-						<label><input type="radio" name="use_curve" value="no" <?php if ($mi_opt['use_curve'] == 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
+						<label><input type="radio" name="use_curve" value="no" <?php if ($mi_opt['use_curve'] === 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
 						</label>
 					</p>
 				</td>
@@ -184,11 +184,11 @@ function micaptcha_general_options() {
 				<td>
 					<p>
 						<label>
-							<input type="radio" name="use_noise" value="yes" <?php if ($mi_opt['use_noise'] === false || $mi_opt['use_noise'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
+							<input type="radio" name="use_noise" value="yes" <?php if ($mi_opt['use_noise'] === false || $mi_opt['use_noise'] === 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
 						</label>
 					</p>
 					<p>
-						<label><input type="radio" name="use_noise" value="no" <?php if ($mi_opt['use_noise'] == 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
+						<label><input type="radio" name="use_noise" value="no" <?php if ($mi_opt['use_noise'] === 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
 						</label>
 					</p>
 				</td>
@@ -198,11 +198,11 @@ function micaptcha_general_options() {
 				<td>
 					<p>
 						<label>
-							<input type="radio" name="distort" value="yes" <?php if ($mi_opt['distort'] === false || $mi_opt['distort'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
+							<input type="radio" name="distort" value="yes" <?php if ($mi_opt['distort'] === false || $mi_opt['distort'] === 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
 						</label>
 					</p>
 					<p>
-						<label><input type="radio" name="distort" value="no" <?php if ($mi_opt['distort'] == 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
+						<label><input type="radio" name="distort" value="no" <?php if ($mi_opt['distort'] === 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
 						</label>
 					</p>
 				</td>
@@ -216,11 +216,11 @@ function micaptcha_general_options() {
 				<td>
 					<p>
 						<label>
-							<input type="radio" name="login" value="yes" <?php if ($mi_opt['login'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Enable', 'mimi-captcha'); ?>
+							<input type="radio" name="login" value="yes" <?php if ($mi_opt['login'] === 'yes') echo 'checked="checked"'; ?>/><?php _e('Enable', 'mimi-captcha'); ?>
 						</label>
 					</p>
 					<p>
-						<label><input type="radio" name="login" value="no" <?php if ($mi_opt['login'] === false || $mi_opt['login'] == 'no') echo 'checked="checked"'; ?>/><?php _e('Disable', 'mimi-captcha'); ?>
+						<label><input type="radio" name="login" value="no" <?php if ($mi_opt['login'] === false || $mi_opt['login'] === 'no') echo 'checked="checked"'; ?>/><?php _e('Disable', 'mimi-captcha'); ?>
 						</label>
 					</p>
 				</td>
@@ -230,11 +230,11 @@ function micaptcha_general_options() {
 				<td>
 					<p>
 						<label>
-							<input type="radio" name="register" value="yes" <?php if ($mi_opt['register'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Enable', 'mimi-captcha'); ?>
+							<input type="radio" name="register" value="yes" <?php if ($mi_opt['register'] === 'yes') echo 'checked="checked"'; ?>/><?php _e('Enable', 'mimi-captcha'); ?>
 						</label>
 					</p>
 					<p>
-						<label><input type="radio" name="register" value="no" <?php if ($mi_opt['register'] === false || $mi_opt['register'] == 'no') echo 'checked="checked"'; ?>/><?php _e('Disable', 'mimi-captcha'); ?>
+						<label><input type="radio" name="register" value="no" <?php if ($mi_opt['register'] === false || $mi_opt['register'] === 'no') echo 'checked="checked"'; ?>/><?php _e('Disable', 'mimi-captcha'); ?>
 						</label>
 					</p>
 				</td>
@@ -244,11 +244,11 @@ function micaptcha_general_options() {
 				<td>
 					<p>
 						<label>
-							<input type="radio" name="password" value="yes" <?php if ($mi_opt['password'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
+							<input type="radio" name="password" value="yes" <?php if ($mi_opt['password'] === 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
 						</label>
 					</p>
 					<p>
-						<label><input type="radio" name="password" value="no" <?php if ($mi_opt['password'] === false || $mi_opt['password'] == 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
+						<label><input type="radio" name="password" value="no" <?php if ($mi_opt['password'] === false || $mi_opt['password'] === 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
 						</label>
 					</p>
 				</td>
@@ -258,11 +258,11 @@ function micaptcha_general_options() {
 				<td>
 					<p>
 						<label>
-							<input type="radio" name="lost" value="yes" <?php if ($mi_opt['lost'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Enable', 'mimi-captcha'); ?>
+							<input type="radio" name="lost" value="yes" <?php if ($mi_opt['lost'] === 'yes') echo 'checked="checked"'; ?>/><?php _e('Enable', 'mimi-captcha'); ?>
 						</label>
 					</p>
 					<p>
-						<label><input type="radio" name="lost" value="no" <?php if ($mi_opt['lost'] === false || $mi_opt['lost'] == 'no') echo 'checked="checked"'; ?>/><?php _e('Disable', 'mimi-captcha'); ?>
+						<label><input type="radio" name="lost" value="no" <?php if ($mi_opt['lost'] === false || $mi_opt['lost'] === 'no') echo 'checked="checked"'; ?>/><?php _e('Disable', 'mimi-captcha'); ?>
 						</label>
 					</p>
 				</td>
@@ -272,11 +272,11 @@ function micaptcha_general_options() {
 				<td>
 					<p>
 						<label>
-							<input type="radio" name="comments" value="yes" <?php if ($mi_opt['comments'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Enable', 'mimi-captcha'); ?>
+							<input type="radio" name="comments" value="yes" <?php if ($mi_opt['comments'] === 'yes') echo 'checked="checked"'; ?>/><?php _e('Enable', 'mimi-captcha'); ?>
 						</label>
 					</p>
 					<p>
-						<label><input type="radio" name="comments" value="no" <?php if ($mi_opt['comments'] === false || $mi_opt['comments'] == 'no') echo 'checked="checked"'; ?>/><?php _e('Disable', 'mimi-captcha'); ?>
+						<label><input type="radio" name="comments" value="no" <?php if ($mi_opt['comments'] === false || $mi_opt['comments'] === 'no') echo 'checked="checked"'; ?>/><?php _e('Disable', 'mimi-captcha'); ?>
 						</label>
 					</p>
 				</td>
@@ -286,11 +286,11 @@ function micaptcha_general_options() {
 				<td>
 					<p>
 						<label>
-							<input type="radio" name="registered" value="yes" <?php if ($mi_opt['registered'] === false || $mi_opt['registered'] == 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
+							<input type="radio" name="registered" value="yes" <?php if ($mi_opt['registered'] === false || $mi_opt['registered'] === 'yes') echo 'checked="checked"'; ?>/><?php _e('Yes'); ?>
 						</label>
 					</p>
 					<p>
-						<label><input type="radio" name="registered" value="no" <?php if ($mi_opt['registered'] == 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
+						<label><input type="radio" name="registered" value="no" <?php if ($mi_opt['registered'] === 'no') echo 'checked="checked"'; ?>/><?php _e('No'); ?>
 						</label>
 					</p>
 				</td>
