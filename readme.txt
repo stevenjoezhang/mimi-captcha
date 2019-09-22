@@ -6,7 +6,7 @@
 * Requires at least: 3.0
 * Tested up to: 5.2
 * Requires PHP: 5.2.4
-* Stable tag: 0.1.2
+* Stable tag: 0.2.0
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -109,6 +109,11 @@ Uninstalling is as simple as deactivating and deleting the plugin.
 6. Mimi Captcha settings page
 
 ## Change Log
+
+### Version 0.2.0
+
+* 修复站点健康问题
+Fix Site Health issue
 
 ### Version 0.1.2
 
