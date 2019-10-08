@@ -3,7 +3,7 @@
  * Plugin Name: Mimi Captcha
  * Plugin URI: https://github.com/stevenjoezhang/mimi-captcha
  * Description: 简洁的中文验证码插件。在WordPress登陆、注册或评论表单中加入验证码功能，支持字母、数字、中文和算术验证码。
- * Version: 0.2.0
+ * Version: 0.2.1
  * Author: Shuqiao Zhang
  * Author URI: https://zhangshuqiao.org
  * Text Domain: mimi-captcha
@@ -387,7 +387,7 @@ function micaptcha_edit_password_email_text($translated_text, $untranslated_text
 	if (in_array($GLOBALS['pagenow'], array('wp-login.php'))) {
 		if ($untranslated_text === 'A password will be e-mailed to you.') {
 			$translated_text = __('If you leave password fields empty one will be generated for you. Password must be at least eight characters long.', 'mimi-captcha');
-			// 邮件发送密码的方式已在WordPress中被弃用
+			// 邮件发送密码的方式已在WordPress 4.x中被弃用
 		}
 		elseif ($untranslated_text === 'Registration complete. Please check your email.' || $untranslated_text === 'Registration complete. Please check your e-mail.') {
 			$translated_text = __('Registration complete. Please sign in or check your email.', 'mimi-captcha');

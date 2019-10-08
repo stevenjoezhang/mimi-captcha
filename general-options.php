@@ -129,7 +129,7 @@ function micaptcha_general_options() {
 					<?php
 						for ($i = 2; $i <= 6; $i++) {
 							echo '<option value="'.$i.'" ';
-							if ($mi_opt['total_no_of_characters'] === $i) {
+							if ($mi_opt['total_no_of_characters'] === strval($i)) {
 								echo 'selected="selected"';
 							}
 							echo '>'.$i.'</option>';
@@ -142,12 +142,12 @@ function micaptcha_general_options() {
 				<th scope="row"><?php _e('Captcha expiration time', 'mimi-captcha'); ?></th>
 				<td>
 					<select name="timeout_time">
-						<option value="30" <?php if ($mi_opt['timeout_time'] === 30) echo 'selected="selected"'; ?>><?php _e('30 seconds', 'mimi-captcha'); ?></option>
-						<option value="60" <?php if ($mi_opt['timeout_time'] === 60) echo 'selected="selected"'; ?>><?php _e('1 min', 'mimi-captcha'); ?></option>
-						<option value="120" <?php if ($mi_opt['timeout_time'] === 120) echo 'selected="selected"'; ?>><?php _e('2 min', 'mimi-captcha'); ?></option>
-						<option value="300" <?php if ($mi_opt['timeout_time'] === 300) echo 'selected="selected"'; ?>><?php _e('5 min', 'mimi-captcha'); ?></option>
-						<option value="600" <?php if ($mi_opt['timeout_time'] === 600) echo 'selected="selected"'; ?>><?php _e('10 min', 'mimi-captcha'); ?></option>
-						<option value="0" <?php if ($mi_opt['timeout_time'] === 0) echo 'selected="selected"'; ?>><?php _e('Unlimited', 'mimi-captcha'); ?></option>
+						<option value="30" <?php if ($mi_opt['timeout_time'] === '30') echo 'selected="selected"'; ?>><?php _e('30 seconds', 'mimi-captcha'); ?></option>
+						<option value="60" <?php if ($mi_opt['timeout_time'] === '60') echo 'selected="selected"'; ?>><?php _e('1 min', 'mimi-captcha'); ?></option>
+						<option value="120" <?php if ($mi_opt['timeout_time'] === '120') echo 'selected="selected"'; ?>><?php _e('2 min', 'mimi-captcha'); ?></option>
+						<option value="300" <?php if ($mi_opt['timeout_time'] === '300') echo 'selected="selected"'; ?>><?php _e('5 min', 'mimi-captcha'); ?></option>
+						<option value="600" <?php if ($mi_opt['timeout_time'] === '600') echo 'selected="selected"'; ?>><?php _e('10 min', 'mimi-captcha'); ?></option>
+						<option value="0" <?php if ($mi_opt['timeout_time'] === '0') echo 'selected="selected"'; ?>><?php _e('Unlimited', 'mimi-captcha'); ?></option>
 					</select>
 				</td>
 			</tr>
