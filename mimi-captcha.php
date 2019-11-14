@@ -3,7 +3,7 @@
  * Plugin Name: Mimi Captcha
  * Plugin URI: https://github.com/stevenjoezhang/mimi-captcha
  * Description: 简洁的中文验证码插件。在WordPress登陆、注册或评论表单中加入验证码功能，支持字母、数字、中文和算术验证码。
- * Version: 0.2.1
+ * Version: 0.3.0
  * Author: Shuqiao Zhang
  * Author URI: https://zhangshuqiao.org
  * Text Domain: mimi-captcha
