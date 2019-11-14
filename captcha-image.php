@@ -10,9 +10,9 @@
 class Mimi_Captcha_Image {
 
 	// 验证码中的参数
-	protected static $code = array('无', '验', '证', '码');
+	protected static $code = ['无', '验', '证', '码'];
 	protected static $bg = null;
-	protected static $fonts = array(); // 可用的字体
+	protected static $fonts = []; // 可用的字体
 	protected static $image_L = 0; // 验证码图片长
 	protected static $image_H = 0; // 验证码图片宽
 	protected static $image = null; // 验证码图片实例
@@ -32,11 +32,11 @@ class Mimi_Captcha_Image {
 		// 验证码文字
 		self::$code = $code;
 		// 设置背景颜色
-		self::$bg = array(
+		self::$bg = [
 			mt_rand(236, 244),
 			mt_rand(242, 252),
 			mt_rand(247, 255)
-		);
+		];
 		self::$useCurve = $flag >> 2 & 0x01;
 		self::$useNoise = $flag >> 1 & 0x01;
 		self::$distort = $flag & 0x01;

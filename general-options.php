@@ -19,25 +19,25 @@ function micaptcha_general_options() {
 		echo '<div class="notice notice-error"><p>'.sprintf(__('<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br/>Please see the <a href="%1$s">PHP documentation</a> for more infomation.', 'mimi-captcha'), 'https://secure.php.net/manual/book.image.php').'</p></div>';
 	}
 
-	$mi_options = array(
-		'type' => array('alphanumeric', 'alphabets', 'numbers', 'chinese', 'math'),
-		'letters' => array('capital', 'small', 'capitalsmall'),
-		'case_sensitive' => array('sensitive', 'insensitive'),
-		'total_no_of_characters' => array('2', '3', '4', '5', '6'),
-		'timeout_time' => array('30', '60', '120', '300', '600', '0'),
-		'loading_mode' => array('default', 'onload', 'oninput'),
-		'use_curve' => array('yes', 'no'),
-		'use_noise' => array('yes', 'no'),
-		'distort' => array('yes', 'no'),
-		'login' => array('yes', 'no'),
-		'register' => array('yes', 'no'),
-		'password' => array('yes', 'no'),
-		'lost' => array('yes', 'no'),
-		'comments' => array('yes', 'no'),
-		'registered' => array('yes', 'no'),
-		'whitelist_ips' => array()
-		// 'whitelist_usernames' => array()
-	);
+	$mi_options = [
+		'type' => ['alphanumeric', 'alphabets', 'numbers', 'chinese', 'math'],
+		'letters' => ['capital', 'small', 'capitalsmall'],
+		'case_sensitive' => ['sensitive', 'insensitive'],
+		'total_no_of_characters' => ['2', '3', '4', '5', '6'],
+		'timeout_time' => ['30', '60', '120', '300', '600', '0'],
+		'loading_mode' => ['default', 'onload', 'oninput'],
+		'use_curve' => ['yes', 'no'],
+		'use_noise' => ['yes', 'no'],
+		'distort' => ['yes', 'no'],
+		'login' => ['yes', 'no'],
+		'register' => ['yes', 'no'],
+		'password' => ['yes', 'no'],
+		'lost' => ['yes', 'no'],
+		'comments' => ['yes', 'no'],
+		'registered' => ['yes', 'no'],
+		'whitelist_ips' => []
+		// 'whitelist_usernames' => []
+	];
 	if (isset($_POST['submit']) && check_admin_referer(plugin_basename(__FILE__), 'micaptcha_settings_nonce')) {
 ?>
 	<div id="message" class="updated fade">
@@ -49,7 +49,7 @@ function micaptcha_general_options() {
 		foreach ($mi_options as $mi_option => $mi_value) {
 			if (isset($_POST[$mi_option])) {
 				if (empty($mi_value)) {
-					$data = (!empty($_POST[$mi_option])) ? explode("\n", str_replace("\r", "", stripslashes($_POST[$mi_option]))) : array();
+					$data = (!empty($_POST[$mi_option])) ? explode("\n", str_replace("\r", "", stripslashes($_POST[$mi_option]))) : [];
 					if (!empty($data)) {
 						foreach ($data as $key => $ip) {
 							if ('' === $ip) {
@@ -74,7 +74,7 @@ function micaptcha_general_options() {
 			}
 		}
 	}
-	$mi_opt = array();
+	$mi_opt = [];
 	foreach ($mi_options as $mi_option => $mi_value) {
 		$mi_opt[$mi_option] = get_option('micaptcha_'.$mi_option);
 	}

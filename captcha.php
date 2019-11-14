@@ -58,7 +58,7 @@ else {
 }
 
 if ($code_flag) {
-	$code = array(); // Captcha code
+	$code = []; // Captcha code
 	for ($i = 0; $i < $total_no_of_characters; $i++) {
 		$code[] = mb_substr($possible_letters, mt_rand(0, mb_strlen($possible_letters) - 1), 1);
 	}
@@ -67,7 +67,7 @@ if ($code_flag) {
 else {
 	$operator = mt_rand(0, 2);
 	$position = mt_rand(0, 2);
-	$symbols = array('+', '-', '*');
+	$symbols = ['+', '-', '*'];
 	switch ($operator) {
 		case 0:
 			$a = mt_rand(1, 99);

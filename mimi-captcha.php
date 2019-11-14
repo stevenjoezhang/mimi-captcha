@@ -179,7 +179,7 @@ function micaptcha_admin_footer($text) {
 function micaptcha_get_ip() {
 	$ip = '';
 	if (isset($_SERVER)) {
-		$server_vars = array('HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR');
+		$server_vars = ['HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'];
 		foreach ($server_vars as $var) {
 			if (isset($_SERVER[$var]) && !empty($_SERVER[$var])) {
 				if (filter_var($_SERVER[$var], FILTER_VALIDATE_IP)) {
@@ -373,7 +373,7 @@ function micaptcha_check_extra_register_fields($login, $email, $errors) {
 
 // Storing WordPress user-selected password into database on registration
 function micaptcha_register_extra_fields($user_id) {
-	$userdata = array();
+	$userdata = [];
 
 	$userdata['ID'] = $user_id;
 	if (isset($_POST['password']) && $_POST['password'] !== '') {
@@ -384,7 +384,7 @@ function micaptcha_register_extra_fields($user_id) {
 
 // Editing WordPress registration confirmation message
 function micaptcha_edit_password_email_text($translated_text, $untranslated_text, $domain) {
-	if (in_array($GLOBALS['pagenow'], array('wp-login.php'))) {
+	if (in_array($GLOBALS['pagenow'], ['wp-login.php'])) {
 		if ($untranslated_text === 'A password will be e-mailed to you.') {
 			$translated_text = __('If you leave password fields empty one will be generated for you. Password must be at least eight characters long.', 'mimi-captcha');
 			// 邮件发送密码的方式已在WordPress 4.x中被弃用
@@ -489,7 +489,7 @@ function micaptcha_comment_post($comment) {
 		return $comment;
 	}
 	if (micaptcha_validate()) {
-		wp_die(__('<strong>ERROR</strong>: ', 'mimi-captcha').micaptcha_validate(), __('Comment Submission Failure', 'mimi-captcha'), array('response' => 200, 'back_link' => true));
+		wp_die(__('<strong>ERROR</strong>: ', 'mimi-captcha').micaptcha_validate(), __('Comment Submission Failure', 'mimi-captcha'), ['response' => 200, 'back_link' => true]);
 	}
 	return $comment;
 }
