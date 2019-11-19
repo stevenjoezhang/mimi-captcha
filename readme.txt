@@ -3,9 +3,9 @@
 * Contributors: stevenjoezhang
 * Donate link: https://zhangshuqiao.org/2018-07/WordPress中文验证码/
 * Tags: captcha, captcha code, text captcha, forms captcha, security, protection, anti-spam, spam blocker
-* Requires at least: 3.0
+* Requires at least: 3.7
 * Tested up to: 5.3
-* Requires PHP: 7.1
+* Requires PHP: 7.2
 * Stable tag: 0.3.0
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
