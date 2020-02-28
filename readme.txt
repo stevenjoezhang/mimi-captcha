@@ -6,7 +6,7 @@
 * Requires at least: 3.7
 * Tested up to: 5.3
 * Requires PHP: 7.2
-* Stable tag: 0.3.0
+* Stable tag: 0.3.1
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -35,7 +35,7 @@ Administrator can select the letters type from the options available - Capital l
 1. 生成验证码的'imagettftext()'函数需要gd库和FreeType支持。您可以通过执行'php -m'或'phpinfo()'检查php是否具有此拓展，以确保验证码能够正确显示。
 PHP gd2 extension is required. You can run 'php -m' or use 'phpinfo()' to check if it's installed properly.
 
-2. 虽然本插件可以在PHP 5.2.4和WordPress 3.0环境下运行，但为了避免出现不可预料的问题，建议将PHP更新至7.0以上的版本，WordPress更新至最新版本。
+2. 为了避免出现安全问题，建议将PHP更新至7.2以上的版本，WordPress更新至最新版本。
 Upgrade your PHP and WordPress to the latest version for better performance.
 
 ### Support
@@ -109,6 +109,11 @@ Uninstalling is as simple as deactivating and deleting the plugin.
 6. Mimi Captcha settings page
 
 ## Change Log
+
+### Version 0.3.1
+
+* 要求PHP 7.2及更新版本
+Require PHP 7.2 or newer
 
 ### Version 0.3.0
 
