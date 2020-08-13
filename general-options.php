@@ -300,13 +300,13 @@ function micaptcha_general_options() {
 		<h2><?php _e('Captcha fonts', 'mimi-captcha'); ?></h2>
 		<p><?php _e('You can upload fonts (.ttf) to /wp-content/plugins/mimi-captcha/fonts folder. Fonts will be chosen randomly when generating Captcha.', 'mimi-captcha'); ?></p>
 
-		<h2><?php _e('Whitelist', 'mimi-captcha'); ?></h2>
+		<h2><?php _e('Allowlist', 'mimi-captcha'); ?></h2>
 		<div>
 			<p><?php _e('One IP or IP range (1.2.3.4-5.6.7.8) per line.', 'mimi-captcha'); ?></p>
 			<textarea name="whitelist_ips" rows="10" cols="50"><?php echo esc_textarea($whitelist_ips); ?></textarea>
 		</div>
 
-		<h2><?php _e('Blacklist', 'mimi-captcha'); ?></h2>
+		<h2><?php _e('Blocklist', 'mimi-captcha'); ?></h2>
 		<p><?php _e('Coming soon...', 'mimi-captcha'); ?></p>
 
 		<?php submit_button(); ?>
