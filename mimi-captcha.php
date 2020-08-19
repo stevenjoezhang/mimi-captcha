@@ -452,7 +452,7 @@ function micaptcha_lostpassword_errors_wp() {
 /* Captcha for comments starts here */
 
 if (get_option('micaptcha_comments') === 'yes') {
-	add_action('comment_form_after_fields', 'micaptcha_comment_form', 1);
+	add_action('comment_form', 'micaptcha_comment_form', 1);
 	add_action('comment_form_logged_in_after', 'micaptcha_comment_form', 1);
 	add_filter('preprocess_comment', 'micaptcha_comment_post');
 }
