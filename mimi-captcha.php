@@ -452,8 +452,18 @@ function micaptcha_lostpassword_errors_wp() {
 /* Captcha for comments starts here */
 
 if (get_option('micaptcha_comments') === 'yes') {
-	add_action('comment_form', 'micaptcha_comment_form', 1);
-	add_action('comment_form_logged_in_after', 'micaptcha_comment_form', 1);
+	/*
+	 * Common hooks to add necessary actions for the WP comment form,
+	 * but some themes don't contain these hooks in their comments form templates
+	 */
+	add_action('comment_form_after_fields', 'micaptcha_comment_form_wp3', 1);
+	add_action('comment_form_logged_in_after', 'micaptcha_comment_form_wp3', 1);
+	/*
+	 * Try to display the CAPTCHA before the close tag </form>
+	 * in case if hooks 'comment_form_after_fields' or 'comment_form_logged_in_after'
+	 * are not included to the theme comments form template
+	 */
+	add_action('comment_form', 'micaptcha_comment_form');
 	add_filter('preprocess_comment', 'micaptcha_comment_post');
 }
 
@@ -468,6 +478,12 @@ function micaptcha_comment_form() {
 		}
 		echo MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
 	}
+	return true;
+}
+
+function micaptcha_comment_form_wp3() {
+	remove_action('comment_form', 'micaptcha_comment_form');
+	micaptcha_comment_form();
 	return true;
 }
 
