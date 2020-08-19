@@ -6,7 +6,7 @@
 * Requires at least: 3.7
 * Tested up to: 5.5
 * Requires PHP: 7.2
-* Stable tag: 0.3.2
+* Stable tag: 0.4.0
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -109,6 +109,11 @@ Uninstalling is as simple as deactivating and deleting the plugin.
 6. Mimi Captcha settings page
 
 ## Change Log
+
+### Version 0.4.0
+
+* 修复与 Kratos 主题的兼容性问题
+Fix compatibility issue with theme Kratos
 
 ### Version 0.3.2
 
