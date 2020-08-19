@@ -121,17 +121,26 @@ function micaptcha_init_sessions() {
 
 // See: https://plugins.trac.wordpress.org/browser/ninjafirewall/trunk/lib/utils.php
 function micaptcha_pre_http_request($preempt, $r, $url) {
-	if (isset($_SESSION)) {
+	// NFW_DISABLE_SWC can be defined in wp-config.php (undocumented):
+	if (!defined('NFW_DISABLE_SWC') && isset($_SESSION)) {
 		if (function_exists('get_site_url')) {
 			$parse = parse_url(get_site_url());
-			$s_url = @$parse['scheme'] . "://{$parse['host']}";
-			if (strpos( $url, $s_url ) === 0) {
+			$s_url = @$parse['scheme']."://{$parse['host']}";
+			if (strpos($url, $s_url) === 0) {
 				@session_write_close();
 			}
 		}
 	}
 	return false;
 }
+
+// Get rid of the Site Health php_sessions test, it returns a scary message
+// although everything is working as expected
+function micaptcha_remove_php_sessions_test($tests) {
+	unset($tests['direct']['php_sessions']);
+	return $tests;
+}
+add_filter('site_status_tests', 'micaptcha_remove_php_sessions_test');
 
 // To add the menus in the admin section
 function micaptcha_admin_menu() {
