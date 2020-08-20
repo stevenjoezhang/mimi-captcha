@@ -80,7 +80,7 @@ switch (get_option('micaptcha_loading_mode')) {
 define('MICAPTCHA_WHITELIST', '<p class="form-captcha">
 		<label>'.__('Captcha', 'mimi-captcha').' <span class="required">*</span></label>
 		<span style="display: block; clear: both;"></span>
-		<label>'.__('You are in the whitelist', 'mimi-captcha').'</label>
+		<label>'.__('You are in the allowlist', 'mimi-captcha').'</label>
 		</p>');
 define('MICAPTCHA_CONTENT', '<p class="form-captcha">
 		<img alt="Captcha Code" id="micaptcha" src="'.MICAPTCHA_DIR_URL.'default.png" style="max-width: 100%;">
@@ -238,20 +238,20 @@ function micaptcha_ip_in_range($ip, $list) {
 	return false;
 }
 
-function micaptcha_whitelist() { // 黑名单同理
-	$whitelist_ips = get_option('micaptcha_whitelist_ips');
-	// $whitelist_usernames = get_option('micaptcha_whitelist_usernames');
-	if (micaptcha_ip_in_range(micaptcha_get_ip(), (array)$whitelist_ips)) {
+function micaptcha_allowlist() { // 黑名单同理
+	$allowlist_ips = get_option('micaptcha_allowlist_ips');
+	// $allowlist_usernames = get_option('micaptcha_allowlist_usernames');
+	if (micaptcha_ip_in_range(micaptcha_get_ip(), (array)$allowlist_ips)) {
 		return true;
 	}
-	// else if (in_array($username, (array)$whitelist_usernames)) return true;
+	// else if (in_array($username, (array)$allowlist_usernames)) return true;
 	else {
 		return false;
 	}
 }
 
 function micaptcha_validate() {
-	if (micaptcha_whitelist()) {
+	if (micaptcha_allowlist()) {
 		return false;
 	}
 	if (!isset($_SESSION['captcha_time']) || !isset($_SESSION['captcha_code']) || !isset($_REQUEST['captcha_code'])) {
@@ -289,7 +289,7 @@ if (get_option('micaptcha_login') === 'yes') {
 
 // Function to include captcha for login form
 function micaptcha_login() {
-	if (micaptcha_whitelist()) {
+	if (micaptcha_allowlist()) {
 		echo MICAPTCHA_WHITELIST;
 	}
 	else {
@@ -416,7 +416,7 @@ if (get_option('micaptcha_register') === 'yes') {
 
 // Function to include captcha for register form
 function micaptcha_register($default) {
-	echo (micaptcha_whitelist() ? MICAPTCHA_WHITELIST : MICAPTCHA_CONTENT.MICAPTCHA_INPUT);
+	echo (micaptcha_allowlist() ? MICAPTCHA_WHITELIST : MICAPTCHA_CONTENT.MICAPTCHA_INPUT);
 	return true;
 }
 
@@ -444,7 +444,7 @@ if (get_option('micaptcha_lost') === 'yes') {
 
 // Function to include captcha for lost password form
 function micaptcha_lostpassword($default) {
-	echo (micaptcha_whitelist() ? MICAPTCHA_WHITELIST : MICAPTCHA_CONTENT.MICAPTCHA_INPUT);
+	echo (micaptcha_allowlist() ? MICAPTCHA_WHITELIST : MICAPTCHA_CONTENT.MICAPTCHA_INPUT);
 }
 
 function micaptcha_lostpassword_post() {
@@ -478,7 +478,7 @@ if (get_option('micaptcha_comments') === 'yes') {
 
 // Function to include captcha for comments form
 function micaptcha_comment_form() {
-	if (micaptcha_whitelist()) {
+	if (micaptcha_allowlist()) {
 		echo MICAPTCHA_WHITELIST;
 	}
 	else {

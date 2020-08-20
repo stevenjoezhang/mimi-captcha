@@ -20,7 +20,7 @@ msgstr ""
 msgid "Captcha"
 msgstr "验证码"
 
-msgid "You are in the whitelist"
+msgid "You are in the allowlist"
 msgstr "您在白名单中"
 
 msgid "Click the image to refresh"

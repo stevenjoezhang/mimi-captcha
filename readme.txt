@@ -180,7 +180,7 @@ Add more fonts
 Update for WordPress 5.0
 
 * 新功能：白名单
-New feature: whitelist
+New feature: allowlist
 
 ### Version 0.0.3
 

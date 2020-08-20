@@ -35,8 +35,8 @@ function micaptcha_general_options() {
 		'lost' => ['yes', 'no'],
 		'comments' => ['yes', 'no'],
 		'registered' => ['yes', 'no'],
-		'whitelist_ips' => []
-		// 'whitelist_usernames' => []
+		'allowlist_ips' => []
+		// 'allowlist_usernames' => []
 	];
 	if (isset($_POST['submit']) && check_admin_referer(plugin_basename(__FILE__), 'micaptcha_settings_nonce')) {
 ?>
@@ -78,8 +78,8 @@ function micaptcha_general_options() {
 	foreach ($mi_options as $mi_option => $mi_value) {
 		$mi_opt[$mi_option] = get_option('micaptcha_'.$mi_option);
 	}
-	$whitelist_ips = (is_array($mi_opt['whitelist_ips']) && !empty($mi_opt['whitelist_ips'])) ? implode("\n", $mi_opt['whitelist_ips']) : '';
-	// $whitelist_usernames = (is_array($mi_opt['whitelist_usernames']) && !empty($mi_opt['whitelist_usernames'])) ? implode("\n", $mi_opt['whitelist_usernames']) : '';
+	$allowlist_ips = (is_array($mi_opt['allowlist_ips']) && !empty($mi_opt['allowlist_ips'])) ? implode("\n", $mi_opt['allowlist_ips']) : '';
+	// $allowlist_usernames = (is_array($mi_opt['allowlist_usernames']) && !empty($mi_opt['allowlist_usernames'])) ? implode("\n", $mi_opt['allowlist_usernames']) : '';
 ?>
 	<form method="post" action="" id="micaptcha">
 		<?php wp_nonce_field(plugin_basename(__FILE__), 'micaptcha_settings_nonce'); ?>
@@ -303,7 +303,7 @@ function micaptcha_general_options() {
 		<h2><?php _e('Allowlist', 'mimi-captcha'); ?></h2>
 		<div>
 			<p><?php _e('One IP or IP range (1.2.3.4-5.6.7.8) per line.', 'mimi-captcha'); ?></p>
-			<textarea name="whitelist_ips" rows="10" cols="50"><?php echo esc_textarea($whitelist_ips); ?></textarea>
+			<textarea name="allowlist_ips" rows="10" cols="50"><?php echo esc_textarea($allowlist_ips); ?></textarea>
 		</div>
 
 		<h2><?php _e('Blocklist', 'mimi-captcha'); ?></h2>
