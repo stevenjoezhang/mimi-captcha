@@ -62,7 +62,7 @@ If you think any feature adding to this plugin can improve its features, please 
 ### Known Issues
 
 本插件使用了 SESSION 存储用户信息，这可能造成性能瓶颈。建议通过在 php.ini 中设置 session.save_handler 为 redis 或 memcached（均需要安装拓展），以提升性能。
-This plugin uses SESSION to save user infomation, you can configure redis or memcached server in your php.ini for better performance.
+This plugin uses SESSION to save user information, you can configure redis or memcached server in your php.ini for better performance.
 
 ### TODO List
 
@@ -207,7 +207,7 @@ Have a nice day :)
 ## Credits
 
 本项目从 Vinoj Cardoza 的 Captcha Code，BestWebSoft 的 Google Captcha 和 Sola 的 User Generate Password 插件中获得了灵感。这些项目的重要信息摘录如下：
-This plugin is inspired by some other plugins. More infomation about them is listed below:
+This plugin is inspired by some other plugins. More information about them is listed below:
 
 Plugin Name: Captcha Code
 Plugin URI: http://www.vinojcardoza.com/captcha-code-authentication

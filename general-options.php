@@ -10,13 +10,13 @@ function micaptcha_general_options() {
 	<h1>Mimi Captcha</h1>
 	<div class="notice notice-info is-dismissible">
 		<p>
-		<?php printf(__('<strong>Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our <a href="%1$s" target="_blank" rel="noopener noreferrer">GitHub Repo</a> for more infomation.', 'mimi-captcha'), 'https://github.com/stevenjoezhang/mimi-captcha'); ?>
+		<?php printf(__('<strong>Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our <a href="%1$s" target="_blank" rel="noopener noreferrer">GitHub Repo</a> for more information.', 'mimi-captcha'), 'https://github.com/stevenjoezhang/mimi-captcha'); ?>
 		</p>
 	</div>
 
 <?php
 	if (!function_exists('gd_info')) {
-		echo '<div class="notice notice-error"><p>'.sprintf(__('<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br/>Please see the <a href="%1$s">PHP documentation</a> for more infomation.', 'mimi-captcha'), 'https://secure.php.net/manual/book.image.php').'</p></div>';
+		echo '<div class="notice notice-error"><p>'.sprintf(__('<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br/>Please see the <a href="%1$s">PHP documentation</a> for more information.', 'mimi-captcha'), 'https://secure.php.net/manual/book.image.php').'</p></div>';
 	}
 
 	$mi_options = [

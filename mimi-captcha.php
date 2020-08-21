@@ -161,7 +161,7 @@ function micaptcha_admin_notice() {
 			echo '<div class="notice notice-warning"><p><strong>'.sprintf(__('Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%1$s">plugin admin page</a> to check settings.', 'mimi-captcha'), admin_url('options-general.php?page=micaptcha_slug')).'</strong></p></div>';
 		}
 		if (!function_exists('gd_info')) {
-			echo '<div class="notice notice-error"><p>'.sprintf(__('<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br>Please see the <a href="%1$s">PHP documentation</a> for more infomation.', 'mimi-captcha'), 'https://secure.php.net/manual/book.image.php').'</p></div>';
+			echo '<div class="notice notice-error"><p>'.sprintf(__('<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br>Please see the <a href="%1$s">PHP documentation</a> for more information.', 'mimi-captcha'), 'https://secure.php.net/manual/book.image.php').'</p></div>';
 		}
 	}
 }
