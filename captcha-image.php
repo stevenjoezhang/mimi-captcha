@@ -48,12 +48,7 @@ class Mimi_Captcha_Image {
  */
 	public static function entry() {
 		// 验证码使用随机字体
-		$all_fonts = scandir(dirname(__FILE__).'/fonts/');
-		foreach ($all_fonts as $fontname) {
-			if (preg_match('/(.*)\.ttf/', $fontname)) {
-				self::$fonts[] = $fontname;
-			}
-		}
+		self::$fonts = glob(dirname(__FILE__).'/fonts/*.ttf');
 		if (count(self::$fonts) === 0) {
 			die("Error: No fonts are available. Please upload fonts to /wp-content/plugins/mimi-captcha/fonts/ folder.");
 		}
@@ -75,7 +70,7 @@ class Mimi_Captcha_Image {
 		// 绘验证码
 		for ($i = 0; $i < count(self::$code); $i++) {
 			$codeNX = self::$fontSize * mt_rand(16 * $i + 4, 16 * $i + 12) / 10; // 验证码第N个字符的左边距
-			$ttf = dirname(__FILE__).'/fonts/'.self::$fonts[mt_rand(0, count(self::$fonts) - 1)];
+			$ttf = self::$fonts[mt_rand(0, count(self::$fonts) - 1)];
 			// 写一个验证码字符
 			imagettftext(
 				self::$image,
