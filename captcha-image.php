@@ -135,18 +135,16 @@ class Mimi_Captcha_Image {
 		$px2 = mt_rand(self::$image_L / 2, self::$image_L * 2 / 3); // 曲线横坐标结束位置
 		$color = self::color(120, 160);
 		for ($px = $px1; $px <= $px2; $px += 0.9) {
-			if ($omega != 0) {
-				$py = $A * sin($omega * $px + $phi) + $b + self::$image_H / 2; // y=Asin(ωx+φ)+b
-				$i = (int) ((self::$fontSize - 6) / 4);
-				while ($i > 0) {
-					imagesetpixel(
-						self::$image,
-						$px + $i,
-						$py + $i,
-						$color
-					);
-					$i--;
-				}
+			$py = $A * sin($omega * $px + $phi) + $b + self::$image_H / 2; // y=Asin(ωx+φ)+b
+			$i = (int) ((self::$fontSize - 6) / 4);
+			while ($i > 0) {
+				imagesetpixel(
+					self::$image,
+					$px + $i,
+					$py + $i,
+					$color
+				);
+				$i--;
 			}
 		}
 
@@ -159,18 +157,16 @@ class Mimi_Captcha_Image {
 		$px2 = self::$image_L;
 		$color = self::color(120, 160);
 		for ($px = $px1; $px <= $px2; $px += 0.9) {
-			if ($omega != 0) {
-				$py = $A * sin($omega * $px + $phi) + $b + self::$image_H / 2;
-				$i = (int) ((self::$fontSize - 8) / 4);
-				while ($i > 0) {
-					imagesetpixel(
-						self::$image,
-						$px + $i,
-						$py + $i,
-						$color
-					);
-					$i--;
-				}
+			$py = $A * sin($omega * $px + $phi) + $b + self::$image_H / 2;
+			$i = (int) ((self::$fontSize - 8) / 4);
+			while ($i > 0) {
+				imagesetpixel(
+					self::$image,
+					$px + $i,
+					$py + $i,
+					$color
+				);
+				$i--;
 			}
 		}
 	}
