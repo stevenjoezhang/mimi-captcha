@@ -5,7 +5,7 @@
 * Tags: captcha, captcha code, text captcha, forms captcha, security, protection, anti-spam, spam blocker
 * Requires at least: 3.7
 * Tested up to: 5.7
-* Requires PHP: 7.2
+* Requires PHP: 7.3
 * Stable tag: 0.4.0
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -109,6 +109,11 @@ Uninstalling is as simple as deactivating and deleting the plugin.
 6. Mimi Captcha settings page
 
 ## Change Log
+
+### Version 0.5.0
+
+* 要求 PHP 7.3 及更新版本
+Require PHP 7.3 or newer
 
 ### Version 0.4.0
 
