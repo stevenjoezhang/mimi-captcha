@@ -5,7 +5,7 @@
 * Tags: captcha, captcha code, text captcha, forms captcha, security, protection, anti-spam, spam blocker
 * Requires at least: 3.7
 * Tested up to: 5.8
-* Requires PHP: 7.3
+* Requires PHP: 7.4
 * Stable tag: 0.5.0
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -35,8 +35,8 @@ Administrator can select the letters type from the options available - Capital l
 1. 生成验证码的 'imagettftext()' 函数需要 gd 库和 FreeType 支持。您可以通过执行 'php -m' 或 'phpinfo()' 检查 php 是否具有此拓展，以确保验证码能够正确显示。
 PHP gd2 extension is required. You can run 'php -m' or use 'phpinfo()' to check if it's installed properly.
 
-2. 为了避免出现安全问题，建议将 PHP 更新至 7.2 以上的版本，WordPress 更新至最新版本。
-Upgrade your PHP and WordPress to the latest version for better performance.
+2. 为了避免出现安全问题，建议将 PHP 更新至 7.4 以上的版本，WordPress 更新至最新版本。
+Upgrade your PHP and WordPress to the latest version to avoid security vulnerabilities.
 
 ### Support
 
