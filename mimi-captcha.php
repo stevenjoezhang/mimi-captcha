@@ -188,7 +188,7 @@ function micaptcha_admin_footer($text) {
 function micaptcha_get_ip() {
 	$ip = '';
 	if (isset($_SERVER)) {
-		$server_vars = ['HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'];
+		$server_vars = ['HTTP_CF_CONNECTING_IP', 'HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'];
 		foreach ($server_vars as $var) {
 			if (isset($_SERVER[$var]) && !empty($_SERVER[$var])) {
 				if (filter_var($_SERVER[$var], FILTER_VALIDATE_IP)) {
