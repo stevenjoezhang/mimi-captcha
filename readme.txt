@@ -4,9 +4,9 @@
 * Donate link: https://zhangshuqiao.org/2018-07/WordPress中文验证码/
 * Tags: captcha, captcha code, text captcha, forms captcha, security, protection, anti-spam, spam blocker
 * Requires at least: 3.7
-* Tested up to: 5.9
+* Tested up to: 6.0
 * Requires PHP: 7.4
-* Stable tag: 0.5.0
+* Stable tag: 0.6.0
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -109,6 +109,11 @@ Uninstalling is as simple as deactivating and deleting the plugin.
 6. Mimi Captcha settings page
 
 ## Change Log
+
+### Version 0.6.0
+
+* 要求 PHP 7.4 及更新版本
+Require PHP 7.4 or newer
 
 ### Version 0.5.0
 
