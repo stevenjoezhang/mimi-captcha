@@ -175,7 +175,7 @@ function micaptcha_plugin_actions($links, $file) {
 }
 
 function micaptcha_admin_footer($text) {
-	if ($_GET['page'] === 'micaptcha_slug' && function_exists('admin_url')) {
+	if (isset($_GET['page']) && $_GET['page'] === 'micaptcha_slug' && function_exists('admin_url')) {
 		$url = 'https://wordpress.org/support/plugin/mimi-captcha/reviews/?filter=5#new-post';
 		$text = sprintf(
 			// Translators: %1$s - WP.org link; %2$s - same WP.org link
