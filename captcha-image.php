@@ -140,9 +140,9 @@ class Mimi_Captcha_Image {
 			while ($i > 0) {
 				imagesetpixel(
 					self::$image,
-					$px + $i,
-					$py + $i,
-					$color
+					(int)($px + $i),
+					(int)($py + $i),
+					(int)$color
 				);
 				$i--;
 			}
@@ -162,9 +162,9 @@ class Mimi_Captcha_Image {
 			while ($i > 0) {
 				imagesetpixel(
 					self::$image,
-					$px + $i,
-					$py + $i,
-					$color
+					(int)($px + $i),
+					(int)($py + $i),
+					(int)$color
 				);
 				$i--;
 			}
