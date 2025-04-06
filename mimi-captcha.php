@@ -320,7 +320,7 @@ function micaptcha_login_redirect($url) {
 	if (isset($_SESSION['captcha_code']) && isset($_REQUEST['captcha_code']) && micaptcha_validate()) {
 		$_SESSION['captcha_error'] = micaptcha_validate();
 		wp_clear_auth_cookie();
-		return $_SERVER["REQUEST_URI"]."/?captcha='confirm_error'";
+		return $_SERVER["REQUEST_URI"]."?captcha=confirm_error";
 		// 登陆限制（IP或者用户名）应在此完成，使用数据库而非SESSION记录
 	}
 	// Captcha match: take to the admin panel
