@@ -28,7 +28,6 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-load_plugin_textdomain('mimi-captcha', false, dirname(plugin_basename(__FILE__)).'/languages');
 define('MICAPTCHA_DIR_URL', plugin_dir_url(__FILE__));
 
 switch (get_option('micaptcha_loading_mode')) {
@@ -75,20 +74,29 @@ switch (get_option('micaptcha_loading_mode')) {
 		</script>');
 		break;
 }
-define('MICAPTCHA_WHITELIST', '<p class="form-captcha">
+
+function micaptcha_get_whitelist_content() {
+	return '<p class="form-captcha">
 		<label>'.__('Captcha', 'mimi-captcha').' <span class="required">*</span></label>
 		<span style="display: block; clear: both;"></span>
 		<label>'.__('You are in the allowlist', 'mimi-captcha').'</label>
-		</p>');
-define('MICAPTCHA_CONTENT', '<p class="form-captcha">
+		</p>';
+}
+
+function micaptcha_get_captcha_content() {
+	return '<p class="form-captcha">
 		<img alt="Captcha Code" id="micaptcha" src="'.MICAPTCHA_DIR_URL.'default.png" style="max-width: 100%;">
 		<span style="display: block; clear: both;"></span>
 		<label>'.__('Click the image to refresh', 'mimi-captcha').'</label>
-		<span style="display: block; clear: both;"></span>'.MICAPTCHA_SCRIPT);
-define('MICAPTCHA_INPUT', '<label for="url">'.__('Captcha', 'mimi-captcha').' <span class="required">*</span></label>
+		<span style="display: block; clear: both;"></span>'.MICAPTCHA_SCRIPT;
+}
+
+function micaptcha_get_input_content() {
+	return '<label for="url">'.__('Captcha', 'mimi-captcha').' <span class="required">*</span></label>
 		<!-- Don`t Ask Why Not `for="captcha_code"`. You are Not Expected to Understand This. -->
 		<input id="captcha_code" name="captcha_code" type="text" size="30" maxlength="200" autocomplete="off" style="display: block;">
-		</p>');
+		</p>';
+}
 
 // Hook to initialize sessions
 add_action('init', 'micaptcha_init_sessions');
@@ -111,6 +119,7 @@ function micaptcha_init_sessions() {
 	$_SESSION['captcha_letters'] = get_option('micaptcha_letters');
 	$_SESSION['total_no_of_characters'] = get_option('micaptcha_total_no_of_characters');
 	$_SESSION['captcha_flag'] = ((get_option('micaptcha_use_curve') === 'yes') << 2) | ((get_option('micaptcha_use_noise') === 'yes') << 1) | (get_option('micaptcha_distort') === 'yes');
+	load_plugin_textdomain('mimi-captcha', false, dirname(plugin_basename(__FILE__)).'/languages');
 }
 
 // Write session to disk to prevent cURL time-out which may occur with
@@ -288,17 +297,17 @@ if (get_option('micaptcha_login') === 'yes') {
 // Function to include captcha for login form
 function micaptcha_login() {
 	if (micaptcha_allowlist()) {
-		echo MICAPTCHA_WHITELIST;
+		echo micaptcha_get_whitelist_content();
 	}
 	else {
-		echo MICAPTCHA_CONTENT;
+		echo micaptcha_get_captcha_content();
 		// Will retrieve the get varibale and prints a message from url if the captcha is wrong
 		if (isset($_GET['captcha']) && $_GET['captcha'] === 'confirm_error') {
 			echo '<label style="color: #FF0000;">'.$_SESSION['captcha_error'].'</label>
 			<span style="display: block; clear: both;"></span>';
 			$_SESSION['captcha_error'] = '';
 		}
-		echo MICAPTCHA_INPUT;
+		echo micaptcha_get_input_content();
 	}
 	return true;
 }
@@ -414,7 +423,7 @@ if (get_option('micaptcha_register') === 'yes') {
 
 // Function to include captcha for register form
 function micaptcha_register($default) {
-	echo (micaptcha_allowlist() ? MICAPTCHA_WHITELIST : MICAPTCHA_CONTENT.MICAPTCHA_INPUT);
+	echo (micaptcha_allowlist() ? micaptcha_get_whitelist_content() : micaptcha_get_captcha_content().micaptcha_get_input_content());
 	return true;
 }
 
@@ -442,7 +451,7 @@ if (get_option('micaptcha_lost') === 'yes') {
 
 // Function to include captcha for lost password form
 function micaptcha_lostpassword($default) {
-	echo (micaptcha_allowlist() ? MICAPTCHA_WHITELIST : MICAPTCHA_CONTENT.MICAPTCHA_INPUT);
+	echo (micaptcha_allowlist() ? micaptcha_get_whitelist_content() : micaptcha_get_captcha_content().micaptcha_get_input_content());
 }
 
 function micaptcha_lostpassword_post() {
@@ -477,13 +486,13 @@ if (get_option('micaptcha_comments') === 'yes') {
 // Function to include captcha for comments form
 function micaptcha_comment_form() {
 	if (micaptcha_allowlist()) {
-		echo MICAPTCHA_WHITELIST;
+		echo micaptcha_get_whitelist_content();
 	}
 	else {
 		if (is_user_logged_in() && get_option('micaptcha_registered') === 'yes') {
 			return true;
 		}
-		echo MICAPTCHA_CONTENT.MICAPTCHA_INPUT;
+		echo micaptcha_get_captcha_content().micaptcha_get_input_content();
 	}
 	return true;
 }
