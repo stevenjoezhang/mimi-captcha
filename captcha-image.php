@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * 安全验证码
  * 安全的验证码要：验证码文字扭曲、旋转，使用不同字体，添加干扰码
@@ -13,22 +14,25 @@ class Mimi_Captcha_Image {
 	protected static $code = ['无', '验', '证', '码'];
 	protected static $bg = null;
 	protected static $fonts = []; // 可用的字体
-	protected static $image_L = 0; // 验证码图片长
-	protected static $image_H = 0; // 验证码图片宽
+	protected static int $image_L = 0; // 验证码图片长
+	protected static int $image_H = 0; // 验证码图片宽
 	protected static $image = null; // 验证码图片实例
 
 	// Settings: You can customize the captcha here
-	protected static $fontSize = 30; // 验证码字体大小(px)
-	protected static $useCurve = true; // 是否画混淆曲线
-	protected static $useNoise = true; // 是否添加杂点
-	protected static $distort = true; // 是否扭曲
+	protected static int $fontSize = 30; // 验证码字体大小(px)
+	protected static bool $useCurve = true; // 是否画混淆曲线
+	protected static bool $useNoise = true; // 是否添加杂点
+	protected static bool $distort = true; // 是否扭曲
 
 /**
  * 构造函数
- * @var array $code
- * @var int   $flag
  */
 	function __construct($code, $flag = 7) {
+		// 验证码使用随机字体
+		self::$fonts = glob(dirname(__FILE__).'/fonts/*.ttf');
+		if (count(self::$fonts) === 0) {
+			die("Error: No fonts are available. Please upload fonts to /wp-content/plugins/mimi-captcha/fonts/ folder.");
+		}
 		// 验证码文字
 		self::$code = $code;
 		// 设置背景颜色
@@ -37,23 +41,20 @@ class Mimi_Captcha_Image {
 			mt_rand(242, 252),
 			mt_rand(247, 255)
 		];
-		self::$useCurve = $flag >> 2 & 0x01;
-		self::$useNoise = $flag >> 1 & 0x01;
-		self::$distort = $flag & 0x01;
+		self::$useCurve = (bool)($flag >> 2 & 1);
+		self::$useNoise = (bool)($flag >> 1 & 1);
+		self::$distort = (bool)($flag & 1);
 	}
 
 /**
  * 输出验证码
  * 内容为self::$code，字体和颜色随机
+ * @var array $code
+ * @var int   $flag
  */
 	public static function entry() {
-		// 验证码使用随机字体
-		self::$fonts = glob(dirname(__FILE__).'/fonts/*.ttf');
-		if (count(self::$fonts) === 0) {
-			die("Error: No fonts are available. Please upload fonts to /wp-content/plugins/mimi-captcha/fonts/ folder.");
-		}
 		// 图片宽(px)
-		self::$image_L || self::$image_L = self::$fontSize * (count(self::$code) * 1.6 + 0.8);
+		self::$image_L || self::$image_L = (int)(self::$fontSize * (count(self::$code) * 1.6 + 0.8));
 		// 图片高(px)
 		self::$image_H || self::$image_H = self::$fontSize * 2;
 		// 建立一幅 self::$image_L x self::$image_H 的图像
@@ -126,16 +127,16 @@ class Mimi_Captcha_Image {
  * b：偏置，表示波形在Y轴的位置关系或纵向移动距离（上加下减）
  */
 	protected static function writeCurve() {
-		$A = mt_rand(1, self::$image_H / 2); // 振幅
-		$T = mt_rand(self::$image_H * 3 / 2, self::$image_L * 2); // 周期
+		$A = mt_rand(1, intdiv(self::$image_H, 2)); // 振幅
+		$T = mt_rand(3 * intdiv(self::$image_H, 2), self::$image_L * 2); // 周期
 		$omega = (2 * M_PI) / $T; // 圆频率
-		$phi = mt_rand(-self::$image_H / 4, self::$image_H / 4); // X轴方向偏移量
-		$b = mt_rand(-self::$image_H / 4, self::$image_H / 4); // Y轴方向偏移量
+		$phi = mt_rand(intdiv(-self::$image_H, 4), intdiv(self::$image_H, 4)); // X轴方向偏移量
+		$b = mt_rand(intdiv(-self::$image_H, 4), intdiv(self::$image_H, 4)); // Y轴方向偏移量
 		$px1 = 0; // 曲线横坐标起始位置
-		$px2 = mt_rand(self::$image_L / 2, self::$image_L * 2 / 3); // 曲线横坐标结束位置
+		$px2 = mt_rand(intdiv(self::$image_L, 2), 2 * intdiv(self::$image_L, 3)); // 曲线横坐标结束位置
 		$color = self::color(120, 160);
 		for ($px = $px1; $px <= $px2; $px += 0.9) {
-			$py = $A * sin($omega * $px + $phi) + $b + self::$image_H / 2; // y=Asin(ωx+φ)+b
+			$py = $A * sin($omega * $px + $phi) + $b + intdiv(self::$image_H, 2); // y=Asin(ωx+φ)+b
 			$i = (int) ((self::$fontSize - 6) / 4);
 			while ($i > 0) {
 				imagesetpixel(
@@ -148,16 +149,16 @@ class Mimi_Captcha_Image {
 			}
 		}
 
-		$A = mt_rand(1, self::$image_H / 2);
-		$T = mt_rand(self::$image_H * 3 / 2, self::$image_L * 2);
+		$A = mt_rand(1, intdiv(self::$image_H, 2));
+		$T = mt_rand(3 * intdiv(self::$image_H, 2), self::$image_L * 2);
 		$omega = (2 * M_PI) / $T;
-		$phi = mt_rand(-self::$image_H / 4, self::$image_H / 4);
-		$b = $py - $A * sin($omega * $px + $phi) - self::$image_H / 2;
+		$phi = mt_rand(intdiv(-self::$image_H, 4), intdiv(self::$image_H, 4));
+		$b = $py - $A * sin($omega * $px + $phi) - intdiv(self::$image_H, 2);
 		$px1 = $px2;
 		$px2 = self::$image_L;
 		$color = self::color(120, 160);
 		for ($px = $px1; $px <= $px2; $px += 0.9) {
-			$py = $A * sin($omega * $px + $phi) + $b + self::$image_H / 2;
+			$py = $A * sin($omega * $px + $phi) + $b + intdiv(self::$image_H, 2);
 			$i = (int) ((self::$fontSize - 8) / 4);
 			while ($i > 0) {
 				imagesetpixel(
@@ -188,7 +189,7 @@ class Mimi_Captcha_Image {
 		$amplitude = mt_rand(4, 6); // 振幅
 		$round = 2; // 扭2个周期
 		for ($i = 0; $i < self::$image_L; $i++) {
-			$posY = round(sin($i * $round * 2 * M_PI / self::$image_L + $phase) * $amplitude + $offset);
+			$posY = (int)round(sin($i * $round * 2 * M_PI / self::$image_L + $phase) * $amplitude + $offset);
 			// 根据正弦曲线，计算偏移量
 			imagecopy($distortion, self::$image, $i, $posY, $i, 0, 1, self::$image_H);
 		}
