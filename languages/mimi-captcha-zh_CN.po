@@ -5,18 +5,16 @@ msgstr ""
 "Project-Id-Version: micaptcha\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mimi-captcha\n"
 "POT-Creation-Date: 1984-01-24 16:00-0000\n"
-"PO-Revision-Date: 1984-01-24 16:00-0000\n"
+"PO-Revision-Date: 2025-07-27 01:10+0800\n"
 "Last-Translator: Shuqiao Zhang <stevenjoezhang(at)gmail.com>\n"
 "Language-Team: Shuqiao Zhang <stevenjoezhang(at)gmail.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Chinese\n"
-"X-Poedit-Country: CHINA\n"
+"X-Generator: Poedit 3.6\n"
 
 # mimi-captcha.php
-
 msgid "Captcha"
 msgstr "验证码"
 
@@ -26,14 +24,14 @@ msgstr "您在白名单中"
 msgid "Click the image to refresh"
 msgstr "看不清？点击图片刷新！"
 
-msgid "Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href="%1$s">plugin admin page</a> to check settings."
-msgstr "感谢您使用 Mimi Captcha。插件暂未完成配置，请您前往<a href="%1$s">插件配置页</a>检查设置。"
+msgid "Thank you for using Mimi Captcha. The plugin is not configured yet, please go to the <a href=\"%1$s\">plugin admin page</a> to check settings."
+msgstr "感谢您使用 Mimi Captcha。插件暂未完成配置，请您前往<a href=\"%1$s\">插件配置页</a>检查设置。"
 
-msgid "<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br/>Please see the <a href="%1$s">PHP documentation</a> for more information."
-msgstr "<strong>错误：PHP GD 拓展没有安装或启用。Mimi Captcha 无法正确运行。</strong><br/>请查阅 <a href="%1$s">PHP 文档</a>获取更多信息。"
+msgid "<strong>ERROR: PHP GD extension is not installed or turned on. Mimi Captcha plugin can not run correctly.</strong><br/>Please see the <a href=\"%1$s\">PHP documentation</a> for more information."
+msgstr "<strong>错误：PHP GD 拓展没有安装或启用。Mimi Captcha 无法正确运行。</strong><br/>请查阅 <a href=\"%1$s\">PHP 文档</a>获取更多信息。"
 
-msgid "Please rate <strong>Mimi Captcha</strong> <a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> to help us spread the word. Thank you from the Mimi Captcha team!"
-msgstr "请在 <a href="%2$s" target="_blank" rel="noopener noreferrer">WordPress.org</a> 上给 <strong>Mimi Captcha</strong> 评分<a href="%1$s" target="_blank" rel="noopener noreferrer">&#9733;&#9733;&#9733;&#9733;&#9733;</a> ，来帮助我们宣传。Mimi Captcha 团队衷心感谢您！"
+msgid "Please rate <strong>Mimi Captcha</strong> <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">WordPress.org</a> to help us spread the word. Thank you from the Mimi Captcha team!"
+msgstr "请在 <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">WordPress.org</a> 上给 <strong>Mimi Captcha</strong> 评分<a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> ，来帮助我们宣传。Mimi Captcha 团队衷心感谢您！"
 
 msgid "Incorrect Captcha confirmation!"
 msgstr "验证码输入错误！"
@@ -69,9 +67,8 @@ msgid "Comment Submission Failure"
 msgstr "评论提交失败"
 
 # general-options.php
-
-msgid "<strong>Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our <a href="%1$s" target="_blank" rel="noopener noreferrer">GitHub Repo</a> for more information."
-msgstr "<strong>感谢您使用 Mimi Captcha。更改设置后请务必手动保存。</strong><br/>前往我们的 <a href="%1$s" target="_blank" rel="noopener noreferrer">GitHub Repo</a> 获取更多信息。"
+msgid "<strong>Thank you for using Mimi Captcha. Remember to save changes manually after changing settings.</strong><br/>Visit our <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub Repo</a> for more information."
+msgstr "<strong>感谢您使用 Mimi Captcha。更改设置后请务必手动保存。</strong><br/>前往我们的 <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub Repo</a> 获取更多信息。"
 
 msgid "Options saved."
 msgstr "选项已保存。"
