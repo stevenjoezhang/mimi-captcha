@@ -29,9 +29,9 @@ class Mimi_Captcha_Image {
  */
 	function __construct($code, $flag = 7) {
 		// 验证码使用随机字体
-		self::$fonts = glob(dirname(__FILE__).'/fonts/*.ttf');
+		self::$fonts = glob(dirname(__FILE__).'/fonts/*.ttf') ?: [];
 		if (count(self::$fonts) === 0) {
-			die("Error: No fonts are available. Please upload fonts to /wp-content/plugins/mimi-captcha/fonts/ folder.");
+			throw new \RuntimeException('Error: No fonts are available. Please upload fonts to the fonts/ folder.');
 		}
 		// 验证码文字
 		self::$code = $code;
@@ -59,6 +59,11 @@ class Mimi_Captcha_Image {
 		self::$image_H || self::$image_H = self::$fontSize * 2;
 		// 建立一幅 self::$image_L x self::$image_H 的图像
 		self::$image = imagecreate(self::$image_L, self::$image_H);
+		if (self::$image === false) { // PHP 8 中 imagecreate 失败时返回 false，继续调用会触发 TypeError
+			http_response_code(503);
+			header('Content-Type: text/plain');
+			die('Error: Unable to create the captcha image.');
+		}
 		imagecolorallocate(
 			self::$image,
 			self::$bg[0],
@@ -98,7 +103,9 @@ class Mimi_Captcha_Image {
 
 		// 输出图像
 		imagepng(self::$image); // Showing the image
-		imagedestroy(self::$image); // Destroying the image instance
+		if (PHP_VERSION_ID < 80000) {
+			imagedestroy(self::$image);
+		}
 	}
 
 /**
@@ -178,6 +185,9 @@ class Mimi_Captcha_Image {
  */
 	protected static function distortion() {
 		$distortion = imagecreate(self::$image_L, self::$image_H);
+		if ($distortion === false) { // 内存不足时放弃扭曲，避免后续 GD 调用报错
+			return;
+		}
 		imagecolorallocate(
 			$distortion,
 			self::$bg[0],
@@ -193,7 +203,9 @@ class Mimi_Captcha_Image {
 			// 根据正弦曲线，计算偏移量
 			imagecopy($distortion, self::$image, $i, $posY, $i, 0, 1, self::$image_H);
 		}
-		imagedestroy(self::$image);
+		if (PHP_VERSION_ID < 80000) {
+			imagedestroy(self::$image);
+		}
 		self::$image = $distortion;
 	}
 

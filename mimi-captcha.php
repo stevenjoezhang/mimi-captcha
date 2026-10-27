@@ -317,8 +317,9 @@ function micaptcha_login_errors($errors) {
 	if (isset($_REQUEST['action']) && $_REQUEST['action'] === 'register') {
 		return $errors;
 	}
-	if (micaptcha_validate()) {
-		return $errors.__('<strong>ERROR</strong>: ', 'mimi-captcha').micaptcha_validate();
+	$captcha_error = micaptcha_validate();
+	if ($captcha_error) {
+		return $errors.__('<strong>ERROR</strong>: ', 'mimi-captcha').$captcha_error;
 	}
 	return $errors;
 }
@@ -329,7 +330,8 @@ function micaptcha_login_redirect($url) {
 	if (isset($_SESSION['captcha_code']) && isset($_REQUEST['captcha_code']) && micaptcha_validate()) {
 		$_SESSION['captcha_error'] = micaptcha_validate();
 		wp_clear_auth_cookie();
-		return $_SERVER["REQUEST_URI"]."?captcha=confirm_error";
+		// REQUEST_URI 本身已带查询串，直接拼接会生成无效 URL，需用 add_query_arg 追加
+		return add_query_arg('captcha', 'confirm_error', $_SERVER["REQUEST_URI"]);
 		// 登陆限制（IP或者用户名）应在此完成，使用数据库而非SESSION记录
 	}
 	// Captcha match: take to the admin panel
@@ -429,17 +431,19 @@ function micaptcha_register($default) {
 
 // This function checks captcha posted with registration
 function micaptcha_register_post($login, $email, $errors) {
-	if (micaptcha_validate()) {
-		$errors->add('captcha_wrong', __('<strong>ERROR</strong>: ', 'mimi-captcha').micaptcha_validate());
+	$captcha_error = micaptcha_validate();
+	if ($captcha_error) {
+		$errors->add('captcha_wrong', __('<strong>ERROR</strong>: ', 'mimi-captcha').$captcha_error);
 	}
 	return $errors;
 }
 
 function micaptcha_register_validate($results) {
-	if (micaptcha_validate()) {
-		$results['errors']->add('captcha_wrong', __('<strong>ERROR</strong>: ', 'mimi-captcha').micaptcha_validate());
-		return $results;
+	$captcha_error = micaptcha_validate();
+	if ($captcha_error) {
+		$results['errors']->add('captcha_wrong', __('<strong>ERROR</strong>: ', 'mimi-captcha').$captcha_error);
 	}
+	return $results;
 }
 
 /* Captcha for lost password form starts here */

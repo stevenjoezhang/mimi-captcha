@@ -2,7 +2,7 @@
 
 session_start();
 if (isset($_SESSION['captcha_time']) && time() - intval($_SESSION['captcha_time']) < 1) { // 限制最短刷新时间
-	$protocol = $_SERVER['HTTPS'] ? 'https://' : 'http://';
+	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
 	header('Location: '.dirname($protocol.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']).'/default.png');
 	die();
 }
@@ -100,12 +100,19 @@ else {
 			break;
 	}
 	$code = str_split($code);
-	$_SESSION['captcha_code'] = $answer;
+	$_SESSION['captcha_code'] = (string)$answer;
 }
 
 require_once('captcha-image.php');
-$captcha = new Mimi_Captcha_Image($code, $captcha_flag);
-$captcha->entry();
+try {
+	$captcha = new Mimi_Captcha_Image($code, $captcha_flag);
+	$captcha->entry();
+}
+catch (\Throwable $e) { // 例如字体缺失：不再直接 die，输出占位响应
+	http_response_code(500);
+	header('Content-Type: text/plain');
+	die($e->getMessage());
+}
 
 $_SESSION['captcha_time'] = time(); // 验证码创建时间 unix timestamp (s)
 
