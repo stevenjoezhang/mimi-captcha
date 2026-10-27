@@ -98,7 +98,9 @@ class Mimi_Captcha_Image {
 
 		// 输出图像
 		imagepng(self::$image); // Showing the image
-		imagedestroy(self::$image); // Destroying the image instance
+		if (PHP_VERSION_ID < 80000) {
+			imagedestroy(self::$image);
+		}
 	}
 
 /**
@@ -193,7 +195,9 @@ class Mimi_Captcha_Image {
 			// 根据正弦曲线，计算偏移量
 			imagecopy($distortion, self::$image, $i, $posY, $i, 0, 1, self::$image_H);
 		}
-		imagedestroy(self::$image);
+		if (PHP_VERSION_ID < 80000) {
+			imagedestroy(self::$image);
+		}
 		self::$image = $distortion;
 	}
 
