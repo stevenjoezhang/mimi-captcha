@@ -2,7 +2,7 @@
 
 session_start();
 if (isset($_SESSION['captcha_time']) && time() - intval($_SESSION['captcha_time']) < 1) { // 限制最短刷新时间
-	$protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
 	header('Location: '.dirname($protocol.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']).'/default.png');
 	die();
 }
